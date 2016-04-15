@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source name="Sqlite (Xerial) - main.db" uuid="def1679d-a2dd-4374-b8e7-1146189a2394">
+    <database-info product="SQLite" version="3.8.11" jdbc-version="2.1" driver-name="SQLiteJDBC" driver-version="native"/>
+    <case-sensitivity plain-identifiers="mixed" quoted-identifiers="mixed"/>
+    <schema name="" catalog=""/>
+    <table name="centers" schema="" catalog="" type="TABLE">
+      <column name="center_id" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <column name="center_name" sqlType="TEXT" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <column name="fs" sqlType="TEXT" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <primary-key columns="center_id"/>
+    </table>
+    <table name="shareholder" schema="" catalog="" type="TABLE">
+      <column name="date" sqlType="DATETIME" precision="0" scale="-1" nullable="true" jdbcType="12" def="J2N1cnJlbnRfdGltZXN0YW1wJw=="/>
+      <column name="user_id" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <column name="name" sqlType="TEXT" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <column name="guardian" sqlType="TEXT" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <column name="mobile" sqlType="TEXT" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <column name="village" sqlType="TEXT" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <column name="ps" sqlType="TEXT" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <column name="nomini" sqlType="TEXT" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <column name="relation" sqlType="TEXT" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <primary-key columns="user_id"/>
+    </table>
+    <table name="shareholder_data" schema="" catalog="" type="TABLE">
+      <column name="trans_id" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <column name="date" sqlType="TEXT" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <column name="user_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="deposit" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4" def="MA=="/>
+      <column name="profit" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4" def="MA=="/>
+      <column name="withdraw" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4" def="MA=="/>
+      <column name="balance" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4" def="MA=="/>
+      <primary-key columns="trans_id"/>
+    </table>
+    <table name="sqlite_sequence" schema="" catalog="" type="TABLE">
+      <column name="name" sqlType="" precision="0" scale="-1" nullable="true" jdbcType="12"/>
+      <column name="seq" sqlType="" precision="0" scale="-1" nullable="true" jdbcType="12"/>
+    </table>
+    <table name="weekly_invest" schema="" catalog="" type="TABLE">
+      <column name="trans_id" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <column name="user_id" sqlType="INT" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="date" sqlType="TEXT" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <column name="investment_amount" sqlType="DOUBLE" precision="0" scale="-1" nullable="false" jdbcType="6"/>
+      <column name="instolment_amount" sqlType="DOUBLE" precision="0" scale="-1" nullable="false" jdbcType="6"/>
+      <column name="project_no" sqlType="INT" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="od_last_month" sqlType="DOUBLE" precision="0" scale="-1" nullable="false" jdbcType="6"/>
+      <column name="investment_cbm" sqlType="DOUBLE" precision="0" scale="-1" nullable="false" jdbcType="6"/>
+      <column name="last_month_outstanding" sqlType="DOUBLE" precision="0" scale="-1" nullable="false" jdbcType="6"/>
+      <column name="disbuds_current_month" sqlType="DOUBLE" precision="0" scale="-1" nullable="false" jdbcType="6"/>
+      <column name="total_balance_inv" sqlType="DOUBLE" precision="0" scale="-1" nullable="false" jdbcType="6"/>
+      <column name="weekly_instolment" sqlType="DOUBLE" precision="0" scale="-1" nullable="false" jdbcType="6"/>
+      <column name="total_collection" sqlType="DOUBLE" precision="0" scale="-1" nullable="false" jdbcType="6"/>
+      <column name="total_outstanding" sqlType="DOUBLE" precision="0" scale="-1" nullable="false" jdbcType="6"/>
+      <primary-key columns="trans_id"/>
+    </table>
+    <table name="weekly_saving" schema="" catalog="" type="TABLE">
+      <column name="trans_id" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <column name="user_id" sqlType="INT" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="date" sqlType="TEXT" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <column name="bf_balance" sqlType="DOUBLE" precision="0" scale="-1" nullable="false" jdbcType="6"/>
+      <column name="weekly_deposit" sqlType="DOUBLE" precision="0" scale="-1" nullable="false" jdbcType="6"/>
+      <column name="rebet" sqlType="DOUBLE" precision="0" scale="-1" nullable="false" jdbcType="6"/>
+      <column name="monthly_collection" sqlType="DOUBLE" precision="0" scale="-1" nullable="false" jdbcType="6"/>
+      <column name="saving_return" sqlType="DOUBLE" precision="0" scale="-1" nullable="false" jdbcType="6"/>
+      <column name="total_balance" sqlType="DOUBLE" precision="0" scale="-1" nullable="false" jdbcType="6"/>
+      <primary-key columns="trans_id"/>
+    </table>
+    <table name="weekly_user" schema="" catalog="" type="TABLE">
+      <column name="user_id" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <column name="center_id" sqlType="INT" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="serial_no" sqlType="INT" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="name" sqlType="TEXT" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <column name="husband" sqlType="TEXT" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <column name="bf_balance" sqlType="DOUBLE" precision="0" scale="-1" nullable="false" jdbcType="6"/>
+      <column name="investment_amount" sqlType="DOUBLE" precision="0" scale="-1" nullable="false" jdbcType="6"/>
+      <primary-key columns="user_id"/>
+    </table>
+  </data-source>
+</component>

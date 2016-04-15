@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="900.0" spacing="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="kpur.views.WeeklyReportDataCtrl">
+   <children>
+      <MenuBar fx:id="menu">
+         <menus>
+            <Menu mnemonicParsing="false" text="File">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#back" text="Back" />
+                  <MenuItem mnemonicParsing="false" onAction="#editAccountInfo" text="Edit Account Information" />
+                  <MenuItem mnemonicParsing="false" onAction="#close" text="Close" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Help">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#about" text="About" />
+               </items>
+            </Menu>
+         </menus>
+      </MenuBar>
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="WEEKLY SAVING &amp; INSTOLMENT COLLECTION CENTRAN MONTHLY REPORT" textAlignment="CENTER">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <HBox alignment="CENTER" prefHeight="46.0" prefWidth="750.0" spacing="20.0">
+         <children>
+            <Label text="Month:">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <DatePicker fx:id="dpMonth" editable="false" />
+            <Button fx:id="btnViewData" mnemonicParsing="false" text="VIEW DATA">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnWeeklyDepositReport" layoutX="473.0" layoutY="25.0" mnemonicParsing="false" text="WEEKLY DEPOSIT REPORT">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
+      <Separator prefWidth="200.0" />
+      <VBox alignment="CENTER">
+         <children>
+            <GridPane>
+               <children>
+                  <Label layoutX="10.0" layoutY="45.0" text="Center Code" GridPane.columnIndex="2">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label text="Center Name" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="10.0" layoutY="17.0" text="F/S" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label text="Member No">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label text="Member Name" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label text="Husband Name" GridPane.rowIndex="2">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lbNo" text=": 01" GridPane.columnIndex="1">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lbName" text=": Name" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lbHusbandName" text=": Husband" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lbCenterName" text=": Borat" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lbFS" text=": Rubel" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lbCenterCode" text=": 01" GridPane.columnIndex="3">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="110.0" minWidth="10.0" prefWidth="103.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="384.0" minWidth="10.0" prefWidth="344.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="110.0" minWidth="0.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="599.0" minWidth="10.0" prefWidth="321.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+            </GridPane>
+            <Separator prefWidth="200.0" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="SAVING DEPOSITE" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Text>
+            <TableView fx:id="savingTable" editable="true" prefHeight="238.0" prefWidth="760.0" tableMenuButtonVisible="true">
+               <columns>
+                  <TableColumn fx:id="colDate" prefWidth="88.0" text="Date" />
+                  <TableColumn fx:id="colBFbalance" prefWidth="102.0" text="B/F Balance" />
+                  <TableColumn fx:id="colWeeklyDeposit" prefWidth="75.0" text="Weekly Deposite" />
+                  <TableColumn fx:id="colRebet" prefWidth="75.0" text="Rebet" />
+                  <TableColumn fx:id="colMonthlyCollection" prefWidth="108.0" text="Monthly Collection" />
+                  <TableColumn fx:id="colSavingReturn" prefWidth="75.0" text="Savings Return" />
+                  <TableColumn fx:id="colTotalBalance" prefWidth="75.0" text="Total Balance" />
+                  <TableColumn fx:id="colTransId" prefWidth="75.0" text="Transaction ID" />
+               </columns>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+            </TableView>
+         </children>
+         <padding>
+            <Insets left="20.0" right="20.0" />
+         </padding>
+      </VBox>
+      <HBox prefHeight="26.0" prefWidth="800.0" spacing="10.0">
+         <children>
+            <DatePicker fx:id="dpSavingDeposit" editable="false" />
+            <TextField fx:id="tfDeposit" promptText="Deposit" />
+            <TextField fx:id="tfRebet" layoutX="204.0" layoutY="10.0" promptText="Rebet" />
+            <TextField fx:id="tfSavingReturn" layoutX="353.0" layoutY="10.0" promptText="Saving Returns" />
+            <Button fx:id="btnSavingAdd" minWidth="70.0" mnemonicParsing="false" onAction="#savingEntry" text="ADD ENTRY" />
+            <Button fx:id="btnSavingDelete" layoutX="651.0" layoutY="10.0" minWidth="70.0" mnemonicParsing="false" onAction="#deleteSaving" text="DELETE ENTRY" />
+         </children>
+         <padding>
+            <Insets left="20.0" right="20.0" />
+         </padding>
+      </HBox>
+      <Separator layoutX="10.0" layoutY="119.0" prefWidth="200.0" />
+      <VBox alignment="CENTER" layoutX="10.0" layoutY="148.0">
+         <padding>
+            <Insets left="20.0" right="20.0" />
+         </padding>
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="INVESTMENT &amp; INSTOLMENT" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Text>
+            <TableView fx:id="investmentTable" editable="true" prefHeight="238.0" prefWidth="760.0" tableMenuButtonVisible="true">
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+               <columns>
+                  <TableColumn fx:id="colDateInv" prefWidth="75.0" text="Date" />
+                  <TableColumn prefWidth="90.0" text="Investment Disbuds">
+                     <columns>
+                        <TableColumn fx:id="colDisbudsAmount" prefWidth="75.0" text="Amount" />
+                     </columns>
+                  </TableColumn>
+                  <TableColumn fx:id="colInstolmentAmount" minWidth="0.0" prefWidth="123.0" text="Instolment Amount" />
+                  <TableColumn fx:id="colProjectNo" minWidth="0.0" prefWidth="3.0" text="Project No" />
+                  <TableColumn fx:id="colODlastMonth" prefWidth="75.0" text="O.D Last Month" />
+                  <TableColumn fx:id="colInvestmentCBM" prefWidth="75.0" text="Investment (C/B/M)" />
+                  <TableColumn prefWidth="75.0" text="Total Investment">
+                     <columns>
+                        <TableColumn fx:id="colLastMonthOutStanding" prefWidth="75.0" text="Last Month(Out Standing)" />
+                        <TableColumn fx:id="colDisbudsCurrentMonth" prefWidth="75.0" text="Disbuds Current Month" />
+                        <TableColumn fx:id="colTotalBalanceInv" prefWidth="75.0" text="Total Balance" />
+                     </columns>
+                  </TableColumn>
+                  <TableColumn fx:id="colWeeklyInstolment" prefWidth="91.0" text="Weekly Instolment" />
+                  <TableColumn prefWidth="125.0" text="Month of Ended">
+                     <columns>
+                        <TableColumn fx:id="colTotalCollection" prefWidth="75.0" text="Total Collection" />
+                        <TableColumn fx:id="colTotalOutstanding" prefWidth="75.0" text="Total (Out Standing)" />
+                     </columns>
+                  </TableColumn>
+                  <TableColumn fx:id="colInvTransId" prefWidth="75.0" text="Transaction ID" />
+               </columns>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </TableView>
+         </children>
+      </VBox>
+      <HBox layoutX="10.0" layoutY="529.0" prefHeight="26.0" prefWidth="800.0" spacing="10.0">
+         <children>
+            <DatePicker fx:id="dpInvestment" />
+            <TextField fx:id="tfDisbudsAmount" promptText="Investment Disbuds Amount" />
+            <TextField fx:id="tfInstolmentAmount" layoutX="204.0" layoutY="10.0" promptText="Instolment Amount" />
+            <TextField fx:id="tfProjectNo" layoutX="373.0" layoutY="10.0" promptText="Project No" />
+            <TextField fx:id="tfWeeklyInstolment" layoutX="353.0" layoutY="10.0" promptText="Weekly Instolment" />
+            <Button fx:id="btnInvestAdd" minWidth="70.0" mnemonicParsing="false" onAction="#investEntry" text="ADD ENTRY" />
+            <Button fx:id="btnInvestDelete" layoutX="651.0" layoutY="10.0" minWidth="70.0" mnemonicParsing="false" onAction="#deleteInvest" text="DELETE ENTRY" />
+         </children>
+         <padding>
+            <Insets left="20.0" right="20.0" />
+         </padding>
+      </HBox>
+   </children>
+</VBox>

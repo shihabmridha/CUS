@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="750.0" spacing="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="kpur.views.WeeklyReportHomeController">
+   <children>
+      <MenuBar fx:id="menu">
+        <menus>
+          <Menu fx:id="file" mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem fx:id="back" mnemonicParsing="false" onAction="#back" text="Back" />
+                  <MenuItem fx:id="create" mnemonicParsing="false" onAction="#createCenter" text="Create Center" />
+                  <MenuItem fx:id="create1" mnemonicParsing="false" onAction="#createAccount" text="Create Account" />
+                  <MenuItem fx:id="close" mnemonicParsing="false" onAction="#close" text="Close" />
+            </items>
+          </Menu>
+          <Menu fx:id="help" mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem fx:id="about" mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="WEEKLY SAVING &amp; INSTOLMENT REPORT">
+         <font>
+            <Font size="24.0" />
+         </font>
+         <VBox.margin>
+            <Insets bottom="20.0" />
+         </VBox.margin>
+      </Text>
+      <TextField fx:id="centerCode" maxWidth="200.0" minWidth="200.0" promptText="Center code" />
+      <Label text="OR" />
+      <ComboBox fx:id="CbCenterList" minWidth="200.0" onAction="#getCenterCode" prefWidth="150.0" promptText="Select Center">
+         <VBox.margin>
+            <Insets bottom="20.0" />
+         </VBox.margin>
+      </ComboBox>
+      <Button fx:id="goBtn" minWidth="200.0" mnemonicParsing="false" onAction="#showData" text="Go to Account">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
+   </children>
+</VBox>
