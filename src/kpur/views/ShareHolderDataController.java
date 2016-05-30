@@ -124,25 +124,19 @@ public class ShareHolderDataController implements Initializable{
 	private ObservableList<ShareHolderDataClass> tableData = FXCollections.observableArrayList();
 	private String id;
 	private int currentBalance = 0;
-
+	GlobalFunctions cs = new GlobalFunctions();
 	/*********************
 	 * SYSTEMS
 	 *********************/
 	@FXML //Menu Back;
 	private void back(ActionEvent event)throws Exception{
-		Stage stage = (Stage) menu.getScene().getWindow();
-		Scene scene = menu.getScene();
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("ShareHolderHomeActivity.fxml"));
-		scene.setRoot(loader.load());
-		stage.setScene(scene);
-		stage.show();
+		cs.changeScene(menu,"ShareHolderHomeActivity","Shareholder Panel");
+
 	}
 	@FXML // Menu Close;
 	private void close(ActionEvent event) throws Exception{
 		Stage stage = (Stage) menu.getScene().getWindow();
-		stage.setOnCloseRequest(e->{
-			System.out.println("Are you sure?");
-		});
+		stage.setOnCloseRequest(e->	System.out.println("Are you sure?"));
 		Platform.exit();
 	}
 
@@ -160,11 +154,7 @@ public class ShareHolderDataController implements Initializable{
 		scene.setRoot(loader.load());
 		stage.setScene(scene);
 		ShareHolderEditInfoController ob = loader.<ShareHolderEditInfoController>getController();
-		System.out.println("HAA: "+id);
 		ob.setDefaults(id);
-		System.out.println("HAA2: "+id);
-
-
 		stage.show();
 	}
 

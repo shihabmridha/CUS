@@ -18,15 +18,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import kpur.model.DatabaseConnection;
@@ -67,21 +59,29 @@ public class WeeklyReportDataCtrl implements Initializable{
 	private TextField tfRebet;
 	@FXML
 	private TextField tfSavingReturn;
-	@FXML
-	private TextField tfDisbudsAmount;
-	@FXML
-	private TextField tfInstolmentAmount;
+
 	@FXML
 	private TextField tfProjectNo;
 	@FXML
-	private TextField tfWeeklyInstolment;
+	private TextField tfODLastMonth;
+	@FXML
+	private TextField tfInvestmentCBM;
+	@FXML
+	private TextField tfLastMonthOS;
+	@FXML
+	private TextField tfDisbudsCurrentMonth;
+	@FXML
+	private TextField tfWeeklyInstalment;
 
+	/************************
+	 * CheckBox
+	 ***********************/
+	@FXML
+	private CheckBox cbInstalmentAmount;
 
 	/************************
 	 * DatePicke
 	 ***********************/
-	@FXML
-	private DatePicker dpMonth;
 	@FXML
 	private DatePicker dpSavingDeposit;
 	@FXML
@@ -102,6 +102,16 @@ public class WeeklyReportDataCtrl implements Initializable{
 	private Button btnInvestAdd;
 	@FXML
 	private Button btnInvestDelete;
+	@FXML
+	private Button btnEndOfMonth;
+
+	/************************
+	 * ComboBox
+	 ***********************/
+	@FXML
+	private ComboBox<String> selectMonth;
+	@FXML
+	private ComboBox<Integer> selectYear;
 
 	/************************
 	 * TableView
@@ -167,10 +177,12 @@ public class WeeklyReportDataCtrl implements Initializable{
 	 ***********************/
     private ObservableList<WeeklySavingDepositData> savingTableData = FXCollections.observableArrayList();
     private ObservableList<WeeklyInvestData> investTableData = FXCollections.observableArrayList();
+	private ObservableList<String> monthsList = FXCollections.observableArrayList();
+	private ObservableList<Integer> yearsList = FXCollections.observableArrayList();
 
-    private String today;
-    private int theID;
-
+    private String today, month, year;
+    private int theID, theCenter;
+	private GlobalFunctions fn = new GlobalFunctions();
 	/*********************
 	 * SYSTEMS
 	 *********************/
@@ -178,18 +190,17 @@ public class WeeklyReportDataCtrl implements Initializable{
 	private void back()throws Exception{
 		Stage stage = (Stage) menu.getScene().getWindow();
 		Scene scene = menu.getScene();
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("WeeklyReportHomeActivity.fxml"));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("WeeklyReportCenterHome.fxml"));
 		scene.setRoot(loader.load());
 		stage.setScene(scene);
-		stage.setTitle("Weekly Report");
+		WeeklyReportCenterHomeController ob = loader.<WeeklyReportCenterHomeController>getController();
+		ob.setData(theCenter);
 		stage.show();
 	}
 	@FXML // Menu Close;
 	private void close() throws Exception{
 		Stage stage = (Stage) menu.getScene().getWindow();
-		stage.setOnCloseRequest(e->{
-			System.out.println("Are you sure?");
-		});
+		stage.setOnCloseRequest(e-> System.out.println("Are you sure?"));
 		Platform.exit();
 	}
 	@FXML // Menu About;
@@ -204,7 +215,15 @@ public class WeeklyReportDataCtrl implements Initializable{
 	 *************************/
 	@FXML
 	private void editAccountInfo() throws Exception{
-
+		Stage stage = (Stage) menu.getScene().getWindow();
+		Scene scene = menu.getScene();
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("WeeklyEditAccount.fxml"));
+		scene.setRoot(loader.load());
+		WeeklyEditAccountCtrl ob = loader.getController();
+		stage.setScene(scene);
+		ob.setDefaults(theID,theCenter);
+		stage.setTitle("Weekly Report - Edit User Information");
+		stage.show();
 	}
 
 
@@ -215,49 +234,17 @@ public class WeeklyReportDataCtrl implements Initializable{
     private double savingCurrentBfBalance = 0, savingCurrentMonthlyCollection = 0, savingCurrentTotalBalance = 0;
 
     // Investment Variables;
-    private double investCurrentDisbudsAmount = 0, investTotalBalance = 0, investLastMonthOS = 0, investDisbudsCurrentMonth = 0;
-    private double investCurrentTotalCollection = 0, investTotalOutstanding = 0;
+    private double theInvestDisbudsAmount = 0, theTotalCollection = 0, theTotalOutStanding = 0;
 
+	@FXML
 	public void setTableAndInfo(int id, int centerCode) throws Exception{
 		theID = id;
+		theCenter = centerCode;
         String[] parts = today.split("/");
-        String month = parts[1];
-        String year = parts[2];
-
-		DatabaseConnection db = new DatabaseConnection();
-		db.setQuery(db.connect().createStatement());
-
-		String sql = String.format("select w.*,c.* from weekly_user w,centers c where w.user_id='%d' and c.center_id='%d' and w.center_id = c.center_id;", theID, centerCode);
-		ResultSet rs = db.getQuery().executeQuery(sql);
-
-		if(rs.next()){
-			lbFS.setText(": " + rs.getString("fs"));
-			lbCenterName.setText(": " + rs.getString("center_name"));
-			lbCenterCode.setText(": " + rs.getString("center_id"));
-			lbName.setText(": " + rs.getString("name"));
-			lbHusbandName.setText(": " + rs.getString("husband"));
-			lbNo.setText(": " + rs.getString("serial_no"));
-			savingCurrentBfBalance = rs.getDouble("bf_balance");
-			savingCurrentTotalBalance = savingCurrentBfBalance;
-		}
-
-		sql = "select * from weekly_saving where user_id='"+theID+"' and date like '%"+month+"/"+year+"';";
-		rs = db.getQuery().executeQuery(sql);
-		while(rs.next()){
-			savingCurrentBfBalance = rs.getDouble("bf_balance");
-			savingCurrentMonthlyCollection = rs.getDouble("monthly_collection");
-			savingCurrentTotalBalance = rs.getDouble("total_balance");
-			savingTableData.add(new WeeklySavingDepositData(rs.getString("date"), rs.getDouble("bf_balance"), rs.getDouble("weekly_deposit"), rs.getDouble("rebet"), rs.getDouble("monthly_collection"), rs.getDouble("saving_return"), rs.getDouble("total_balance"), rs.getInt("trans_id")));
-		}
-
-        //sql = "select * from weekly_invest where user_id='"+theID+"' and date like '%"+month+"/"+year+"';";
-        //rs = db.getQuery().executeQuery(sql);
-        investTableData.add(new WeeklyInvestData("10/15/2016",20000,0,0,0,0,20000,10000,25000,500,500,25500,1));
-		rs.close();
-		db.connect().close();
-
+		month = parts[1];
+		year = parts[2];
+		gettingPrimaryDataFromDB();
 	}
-
 
 	/*************************
 	 * New Entry to Saving
@@ -266,7 +253,8 @@ public class WeeklyReportDataCtrl implements Initializable{
 	void savingEntry() throws Exception{
 		LocalDate dated = dpSavingDeposit.getValue();
 		String theDate = GlobalFunctions.formatDate(dated.toString());
-		double deposit = 0, rebet = 0, savingReturn = 0;
+
+        double deposit = 0, rebet = 0, savingReturn = 0;
 		int transID = 0;
 
 		if(!tfDeposit.getText().isEmpty()){
@@ -280,7 +268,7 @@ public class WeeklyReportDataCtrl implements Initializable{
 		}
 
 		savingCurrentMonthlyCollection += (deposit+rebet);
-		savingCurrentTotalBalance += (deposit-savingReturn);
+		savingCurrentTotalBalance += ((deposit+rebet)-savingReturn);
 
 		/*
 		 * Put data into database;
@@ -308,7 +296,6 @@ public class WeeklyReportDataCtrl implements Initializable{
 		savingTableData.add(new WeeklySavingDepositData(theDate, savingCurrentBfBalance, deposit, rebet, savingCurrentMonthlyCollection, savingReturn, savingCurrentTotalBalance, transID));
 	}
 
-
 	/***********************************
 	 * Delete Entry from Saving
 	 ***********************************/
@@ -335,7 +322,7 @@ public class WeeklyReportDataCtrl implements Initializable{
 				savingCurrentMonthlyCollection = rs.getDouble("monthly_collection");
 				savingCurrentTotalBalance = rs.getDouble("total_balance");
 			}else{
-				rs = db.getQuery().executeQuery(String.format("select bf_balance form weekly_user where user_id = '%d';", theID));
+				rs = db.getQuery().executeQuery(String.format("select bf_balance from weekly_user where user_id = '%d';", theID));
 				if(rs.next()){
 					savingCurrentBfBalance = rs.getDouble("bf_balance");
 					savingCurrentMonthlyCollection = 0;
@@ -351,14 +338,119 @@ public class WeeklyReportDataCtrl implements Initializable{
 	/*************************
 	 * New Entry to Invest
 	 *************************/
-
+	private  double theInstalmentAmount = 0, theProjectNo = 0, theODLastMonth = 0,
+			theInvestCBM = 0, theLastMonthOutStanding = 0, theDisbudsCurrentMonth = 0, theWeeklyInstalment = 0;
 
 	@FXML
 	void investEntry() throws Exception{
-		LocalDate dated = dpInvestment.getValue();
-		String theDate = GlobalFunctions.formatDate(dated.toString());
+
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("Fix the following error!");
+        alert.setHeaderText(null);
+        alert.setContentText("Please insert the date.");
+
+        int transID = 0;
+		double theTotalBalance;
+
+		if(dpInvestment.getValue() == null){
+			alert.showAndWait();
+		}
+		else
+		{
+			LocalDate dated = dpInvestment.getValue();
+			String theDate = GlobalFunctions.formatDate(dated.toString());
+
+			if(!tfProjectNo.getText().isEmpty()) theProjectNo = Double.parseDouble(tfProjectNo.getText());
+			if(!tfODLastMonth.getText().isEmpty()) theODLastMonth = Double.parseDouble(tfODLastMonth.getText());
+			if(!tfInvestmentCBM.getText().isEmpty()) theInvestCBM = Double.parseDouble(tfInvestmentCBM.getText());
+			if(!tfLastMonthOS.getText().isEmpty()) theLastMonthOutStanding = Double.parseDouble(tfLastMonthOS.getText());
+			if(!tfDisbudsCurrentMonth.getText().isEmpty()) theDisbudsCurrentMonth = Double.parseDouble(tfDisbudsCurrentMonth.getText());
+			if(!tfWeeklyInstalment.getText().isEmpty()) theWeeklyInstalment = Double.parseDouble(tfWeeklyInstalment.getText());
 
 
+
+			theTotalBalance = theLastMonthOutStanding + theDisbudsCurrentMonth;
+			theTotalCollection += theWeeklyInstalment;
+			theTotalOutStanding = (theTotalBalance - theTotalCollection);
+
+			if(cbInstalmentAmount.isSelected()){
+				theInstalmentAmount = (theInvestDisbudsAmount+(theInvestDisbudsAmount * 15)/100)/46;
+			}
+
+        /*
+		 * Put data into database;
+		 */
+		DatabaseConnection db = new DatabaseConnection();
+        db.puts("INSERT INTO weekly_invest (user_id, date, investment_amount, " +
+                "instolment_amount, project_no, od_last_month, investment_cbm, " +
+                "last_month_outstanding, disbuds_current_month, total_balance_inv, " +
+                "weekly_instolment, total_collection, total_outstanding) VALUES ("
+                + "'"+theID +"',"
+                + "'"+ theDate +"',"
+                + "'"+ theInvestDisbudsAmount +"',"
+                + "'"+ theInstalmentAmount +"',"
+                + "'"+ theProjectNo +"',"
+                + "'"+ theODLastMonth +"',"
+                + "'"+ theInvestCBM +"',"
+                + "'"+ theLastMonthOutStanding +"',"
+                + "'"+ theDisbudsCurrentMonth +"',"
+                + "'"+ theTotalBalance +"',"
+                + "'"+ theWeeklyInstalment +"',"
+                + "'"+ theTotalCollection +"',"
+                + "'"+ theTotalOutStanding +"');");
+
+			db.setQuery(db.connect().createStatement());
+			String sql = "select trans_id from weekly_invest order by trans_id desc limit 1;";
+			ResultSet rs = db.getQuery().executeQuery(sql);
+			while(rs.next()){
+				transID = Integer.parseInt(rs.getString("trans_id"));
+			}
+			rs.close();
+			db.connect().close();
+
+			investTableData.add(new WeeklyInvestData(theDate,theInvestDisbudsAmount,theInstalmentAmount,theProjectNo,theODLastMonth,theInvestCBM,theLastMonthOutStanding,theDisbudsCurrentMonth,theTotalBalance,theWeeklyInstalment,theTotalCollection,theTotalOutStanding,transID));
+
+			// Reset Everything;
+			tfProjectNo.clear();tfODLastMonth.clear();tfInvestmentCBM.clear();tfLastMonthOS.clear();tfDisbudsCurrentMonth.clear();
+			tfWeeklyInstalment.clear();
+			theInstalmentAmount = 0; theProjectNo = 0; theODLastMonth = 0; theInvestCBM = 0; theWeeklyInstalment = 0;
+
+		}
+
+	}
+
+
+	/**********************************
+	* End of the month calculation;
+	**********************************/
+	@FXML
+	private void endOfMonth() throws Exception{
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Confirmation !!");
+		alert.setHeaderText(null);
+		alert.setContentText("Are you sure? You can not undo this information !");
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() == ButtonType.OK){
+			DatabaseConnection db = new DatabaseConnection();
+			db.setQuery(db.connect().createStatement());
+			double bfbal = 0, outstand = 0;
+			String sql = "SELECT total_balance FROM weekly_saving WHERE user_id = '"+theID+"' and date like '%"+month+"/"+year+"';";
+			ResultSet rs = db.getQuery().executeQuery(sql);
+			while(rs.next()){
+				bfbal = rs.getDouble("total_balance");
+			}
+			sql = "SELECT total_outstanding FROM weekly_invest WHERE user_id = '"+theID+"' and date like '%"+month+"/"+year+"';";
+			rs = db.getQuery().executeQuery(sql);
+			while(rs.next()){
+				outstand = rs.getDouble("total_outstanding");
+			}
+			rs.close();
+			System.out.println("BF: " + bfbal);
+			System.out.println("Out: " + outstand);
+			db.puts("UPDATE weekly_user SET bf_balance='"+bfbal+"',investment_amount='"+outstand+"' WHERE user_id='"+theID+"';");
+
+			db.connect().close();
+		}
 
 	}
 
@@ -366,7 +458,94 @@ public class WeeklyReportDataCtrl implements Initializable{
 	 * Delete Entry from Invest
 	 ***********************************/
 	@FXML
-	void deleteInvest() throws Exception{}
+	void deleteInvest() throws Exception{
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Delete transaction");
+		alert.setHeaderText(null);
+		alert.setContentText("Are you sure? You will not get this data back again!");
+
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() == ButtonType.OK){
+			WeeklyInvestData theData = investmentTable.getSelectionModel().getSelectedItem();
+			investTableData.remove(theData);
+
+			DatabaseConnection db = new DatabaseConnection();
+			db.setQuery(db.connect().createStatement());
+			db.puts(String.format("DELETE FROM weekly_invest WHERE trans_id='%d'", theData.getTransId()));
+
+			db.connect().close();
+			gettingPrimaryDataFromDB();
+		}
+	}
+
+
+
+
+	/********************************
+	* Setting values from database;
+	*********************************/
+	@FXML
+	private void gettingPrimaryDataFromDB() throws Exception{
+		// Reset Table
+		investTableData.removeAll(investTableData);
+		savingTableData.removeAll(savingTableData);
+
+		if(!selectYear.getSelectionModel().isEmpty() && !selectMonth.getSelectionModel().isEmpty()){
+			if(selectMonth.getSelectionModel().getSelectedIndex()+1 >= 10)
+				month = Integer.toString(selectMonth.getSelectionModel().getSelectedIndex()+1);
+			else
+				month = "0" + Integer.toString(selectMonth.getSelectionModel().getSelectedIndex()+1);
+
+			year = Integer.toString(selectYear.getValue());
+		}
+
+		DatabaseConnection db = new DatabaseConnection();
+		db.setQuery(db.connect().createStatement());
+
+		String sql = String.format("select w.*,c.* from weekly_user w,centers c where w.user_id='%d' and c.center_id='%d' and w.center_id = c.center_id;", theID, theCenter);
+		ResultSet rs = db.getQuery().executeQuery(sql);
+		savingCurrentMonthlyCollection = 0; savingCurrentBfBalance = 0; savingCurrentTotalBalance = 0;
+		theDisbudsCurrentMonth = 0; theLastMonthOutStanding = 0; theTotalCollection = 0; theInvestDisbudsAmount = 0;
+		if(rs.next()){
+			lbFS.setText(": " + rs.getString("fs"));
+			lbCenterName.setText(": " + rs.getString("center_name"));
+			lbCenterCode.setText(": " + rs.getString("center_id"));
+			lbName.setText(": " + rs.getString("name"));
+			lbHusbandName.setText(": " + rs.getString("husband"));
+			lbNo.setText(": " + rs.getString("serial_no"));
+
+			// Setting current values
+			savingCurrentBfBalance = rs.getDouble("bf_balance");
+			savingCurrentTotalBalance = savingCurrentBfBalance;
+			theInvestDisbudsAmount = rs.getDouble("investment_amount");
+		}
+
+		sql = "select * from weekly_saving where user_id='"+theID+"' and date like '%"+month+"/"+year+"';";
+		rs = db.getQuery().executeQuery(sql);
+		while(rs.next()){
+			savingCurrentBfBalance = rs.getDouble("bf_balance");
+			savingCurrentMonthlyCollection = rs.getDouble("monthly_collection");
+			savingCurrentTotalBalance = rs.getDouble("total_balance");
+			savingTableData.add(new WeeklySavingDepositData(rs.getString("date"), rs.getDouble("bf_balance"), rs.getDouble("weekly_deposit"), rs.getDouble("rebet"), rs.getDouble("monthly_collection"), rs.getDouble("saving_return"), rs.getDouble("total_balance"), rs.getInt("trans_id")));
+		}
+
+		sql = "select * from weekly_invest where user_id='"+theID+"' and date like '%"+month+"/"+year+"';";
+		rs = db.getQuery().executeQuery(sql);
+		while (rs.next()){
+			theDisbudsCurrentMonth = rs.getDouble("disbuds_current_month");
+			theLastMonthOutStanding = rs.getDouble("last_month_outstanding");
+			theTotalCollection = rs.getDouble("total_collection");
+			investTableData.add(new WeeklyInvestData(
+					rs.getString("date"), rs.getDouble("investment_amount"), rs.getDouble("instolment_amount"),
+					rs.getDouble("project_no"),rs.getDouble("od_last_month"),rs.getDouble("investment_cbm"),
+					rs.getDouble("last_month_outstanding"),rs.getDouble("disbuds_current_month"),rs.getDouble("total_balance_inv"),
+					rs.getDouble("weekly_instolment"),rs.getDouble("total_collection"),rs.getDouble("total_outstanding"), rs.getInt("trans_id")
+			));
+		}
+
+		rs.close();
+		db.connect().close();
+	}
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -398,10 +577,15 @@ public class WeeklyReportDataCtrl implements Initializable{
         colInvTransId.setCellValueFactory(cellData->new ReadOnlyObjectWrapper<>(cellData.getValue().getTransId()));
         investmentTable.setItems(investTableData);
 
+		monthsList.addAll("January","February","March","April","May","June","July","August","September","October","November","December");
+		yearsList.addAll(2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025);
 
 		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 	    Date mydate = new Date();
-	    dpMonth.setPromptText(dateFormat.format(mydate));
+	    //dpMonth.setPromptText(dateFormat.format(mydate));
+		selectMonth.getItems().addAll(monthsList);
+		selectYear.getItems().addAll(yearsList);
+
 	    dpInvestment.setPromptText(dateFormat.format(mydate));
 	    dpSavingDeposit.setPromptText(dateFormat.format(mydate));
 	    today = dateFormat.format(mydate);

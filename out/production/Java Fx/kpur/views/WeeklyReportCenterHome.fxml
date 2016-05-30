@@ -30,9 +30,23 @@
             <Font size="24.0" />
          </font>
          <VBox.margin>
-            <Insets bottom="20.0" />
+            <Insets />
          </VBox.margin>
       </Text>
+      <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Center Code: ">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <Text fx:id="txtCenterCode" layoutX="10.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+         </children>
+      </HBox>
       <ComboBox fx:id="cbName" minWidth="200.0" prefWidth="150.0" promptText="Select Center">
          <VBox.margin>
             <Insets bottom="20.0" />
@@ -42,6 +56,24 @@
          <font>
             <Font size="16.0" />
          </font>
+         <VBox.margin>
+            <Insets bottom="50.0" />
+         </VBox.margin>
       </Button>
+      <Separator prefWidth="200.0" />
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Export Data" underline="true">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Text>
+      <Text fx:id="txtDirError" fill="#d00606" strokeType="OUTSIDE" strokeWidth="0.0" />
+      <HBox alignment="CENTER" prefHeight="50.0" prefWidth="750.0" spacing="10.0">
+         <children>
+            <ComboBox fx:id="selectMonth" onAction="#resetIndicator" prefWidth="150.0" promptText="Month" />
+            <ComboBox fx:id="selectYear" layoutX="310.0" layoutY="23.0" onAction="#resetIndicator" prefWidth="150.0" promptText="Year" />
+            <Button fx:id="btnExport" mnemonicParsing="false" onAction="#exportData" text="Export" />
+            <ProgressIndicator fx:id="progress" progress="0.0" />
+         </children>
+      </HBox>
    </children>
 </VBox>

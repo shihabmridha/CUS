@@ -2,7 +2,14 @@ package kpur.model;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.stage.Stage;
+import kpur.views.ShareHolderDataController;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -44,6 +51,15 @@ public class GlobalFunctions {
 		return finaldate;
 	}
 
+	public void changeScene(MenuBar mn, String name, String title) throws Exception{
+		Stage stage = (Stage) mn.getScene().getWindow();
+		Scene scene = mn.getScene();
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/kpur/views/" + name + ".fxml"));
+		scene.setRoot(loader.load());
+		stage.setScene(scene);
+		stage.setTitle(title + " - CUS");
+		stage.show();
+	}
 
 	public static ObservableList<String> getCenters() throws Exception{
 		ObservableList<String> list = FXCollections.observableArrayList();
@@ -60,11 +76,28 @@ public class GlobalFunctions {
 		return list;
 	}
 
-	public static void userNotFount(){
+	public static int getCenterCode(String centerName) throws Exception{
+		int code = 0;
+		DatabaseConnection db = new DatabaseConnection();
+		db.setQuery(db.connect().createStatement());
+		String sql = "select center_id from centers where center_name='"+centerName+"';";
+		ResultSet rs = db.getQuery().executeQuery(sql);
+		if(rs.next()){
+			code = Integer.parseInt(rs.getString("center_id"));
+		}
+		rs.close();
+		db.connect().close();
+
+		return code;
+	}
+
+	public static void userNotFound(){
 		Alert alert = new Alert(Alert.AlertType.ERROR);
 		alert.setTitle("Error!");
 		alert.setHeaderText(null);
 		alert.setContentText("User not fount. Please check again.");
 		alert.showAndWait();
 	}
+
+
 }

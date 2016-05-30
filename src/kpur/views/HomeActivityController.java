@@ -54,7 +54,7 @@ public class HomeActivityController  implements Initializable{
 		ob.about();
 	}
 	@FXML
-	private void weeklyReport(ActionEvent event) throws Exception{
+	private void weeklyReport() throws Exception{
 		Stage stage = (Stage) weeklyReport.getScene().getWindow();
 		Scene scene = weeklyReport.getScene();
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("WeeklyReportHomeActivity.fxml"));
@@ -75,7 +75,6 @@ public class HomeActivityController  implements Initializable{
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-
 	}
 
 

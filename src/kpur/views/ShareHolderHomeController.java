@@ -73,7 +73,7 @@ public class ShareHolderHomeController implements Initializable{
 	 * SYSTEM
 	 *********************/
 	@FXML
-	private void back(ActionEvent event)throws Exception{
+	private void back()throws Exception{
 		Stage stage = (Stage) menu.getScene().getWindow();
 		Scene scene = menu.getScene();
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("HomeActivity.fxml"));
@@ -82,7 +82,7 @@ public class ShareHolderHomeController implements Initializable{
 		stage.show();
 	}
 	@FXML
-	private void close(ActionEvent event) throws Exception{
+	private void close() throws Exception{
 		Stage stage = (Stage) menu.getScene().getWindow();
 		stage.setOnCloseRequest(e->{
 			System.out.println("Are you sure?");
@@ -91,12 +91,12 @@ public class ShareHolderHomeController implements Initializable{
 	}
 
 	@FXML
-	private void about(ActionEvent event) throws Exception{
+	private void about() throws Exception{
 		GlobalFunctions ob = new GlobalFunctions();
 		ob.about();
 	}
 
-	public void showData(ActionEvent event){
+	public void showData(){
 
 		DatabaseConnection db = new DatabaseConnection();
 		db.connect();
@@ -120,7 +120,7 @@ public class ShareHolderHomeController implements Initializable{
 					e.printStackTrace();
 				}
 			}else{
-				GlobalFunctions.userNotFount();
+				GlobalFunctions.userNotFound();
 			}
 			rs.close();
 			db.connect().close();
@@ -132,7 +132,7 @@ public class ShareHolderHomeController implements Initializable{
 
 	}
 
-	public void createAccount(ActionEvent event){
+	public void createAccount(){
 		Stage stage = (Stage) menu.getScene().getWindow();
 		Scene scene = menu.getScene();
 		try {

@@ -42,22 +42,15 @@ public class WeeklyCreateAccountCtrl implements Initializable{
 	 * VARIABLES
 	 *********************/
 	private ObservableList<String> centerObList = FXCollections.observableArrayList();
-
+	private GlobalFunctions fn = new GlobalFunctions();
 
 	/*********************
 	 * METHODS
 	 *********************/
 	@FXML
 	private void back()throws Exception{
-		Stage stage = (Stage) menu.getScene().getWindow();
-		Scene scene = menu.getScene();
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("WeeklyReportHomeActivity.fxml"));
-		scene.setRoot(loader.load());
-		stage.setScene(scene);
-		stage.setTitle("CUS");
-		stage.show();
+		fn.changeScene(menu,"WeeklyReportHomeActivity","Weekly Report");
 	}
-
 	@FXML
 	private void close() throws Exception{
 		Stage stage = (Stage) menu.getScene().getWindow();
@@ -96,16 +89,10 @@ public class WeeklyCreateAccountCtrl implements Initializable{
 		}
 		else{
 			// Storing user data to DATABASE;
-//			System.out.println(getCenterCode());
-//			System.out.println((getUserSerialNo()+1));
-//			System.out.println(tfName.getText());
-//			System.out.println(tfHusband.getText());
-//			System.out.println(tfbfBalance.getText());
-//			System.out.println(tfInvestmentAmount.getText());
 
 			DatabaseConnection db = new DatabaseConnection();
 			db.puts("INSERT INTO weekly_user (center_id, serial_no, name, husband,bf_balance,investment_amount) VALUES ("
-					+ "'"+ getCenterCode() +"',"
+					+ "'"+ GlobalFunctions.getCenterCode(CbCenterList.getValue()) +"',"
 					+ "'"+ (getUserSerialNo()+1) +"',"
 					+ "'"+ tfName.getText()+"',"
 					+ "'"+ tfHusband.getText()+"',"
@@ -122,7 +109,7 @@ public class WeeklyCreateAccountCtrl implements Initializable{
 	}
 
 	public int getUserSerialNo() throws Exception{
-		int serial = 0, center = getCenterCode();
+		int serial = 0, center = GlobalFunctions.getCenterCode(CbCenterList.getValue());
 		DatabaseConnection db = new DatabaseConnection();
 		db.setQuery(db.connect().createStatement());
 		String sql = "select serial_no from weekly_user where center_id='"+center+"' order by serial_no desc limit 1;";
@@ -134,21 +121,6 @@ public class WeeklyCreateAccountCtrl implements Initializable{
 		db.connect().close();
 
 		return serial;
-	}
-
-	private int getCenterCode() throws Exception{
-		int code = 0;
-		DatabaseConnection db = new DatabaseConnection();
-		db.setQuery(db.connect().createStatement());
-		String sql = "select center_id from centers where center_name='"+CbCenterList.getValue()+"';";
-		ResultSet rs = db.getQuery().executeQuery(sql);
-		if(rs.next()){
-			code = Integer.parseInt(rs.getString("center_id"));
-		}
-		rs.close();
-		db.connect().close();
-
-		return code;
 	}
 
 	@Override

@@ -61,32 +61,24 @@ public class WeeklyReportHomeController implements Initializable{
 	 *********************/
 	int cntrCode;
 	private ObservableList<String> centerList = FXCollections.observableArrayList();
-
+	private GlobalFunctions fn = new GlobalFunctions();
 	/*********************
 	 * SYSTEM
 	 *********************/
 	@FXML
 	void back(ActionEvent event)throws Exception{
-		Stage stage = (Stage) menu.getScene().getWindow();
-		Scene scene = menu.getScene();
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("HomeActivity.fxml"));
-		scene.setRoot(loader.load());
-		stage.setScene(scene);
-		stage.setTitle("CUS");
-		stage.show();
+		fn.changeScene(menu,"HomeActivity","CHASHI UNNOYON SOMITI");
 	}
 
 	@FXML
 	private void close(ActionEvent event) throws Exception{
 		Stage stage = (Stage) menu.getScene().getWindow();
-		stage.setOnCloseRequest(e->{
-			System.out.println("Are you sure?");
-		});
+		stage.setOnCloseRequest(e-> System.out.println("Are you sure?"));
 		Platform.exit();
 	}
 
 	@FXML
-	private void showData(ActionEvent event) throws Exception{
+	private void showData() throws Exception{
 
 		if(!centerCode.getText().equals("")){
 			cntrCode = Integer.parseInt(centerCode.getText());
@@ -121,14 +113,7 @@ public class WeeklyReportHomeController implements Initializable{
 
 	@FXML
 	private void createCenter() throws Exception{
-		Stage stage = (Stage) goBtn.getScene().getWindow();
-		Scene scene = goBtn.getScene();
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("WeeklyCreateCenterActivity.fxml"));
-		scene.setRoot(loader.load());
-		stage.setScene(scene);
-		stage.setTitle("Create center");
-		stage.show();
-
+		fn.changeScene(menu,"WeeklyCreateCenterActivity","Create center");
 	}
 
 	@FXML

@@ -58,34 +58,28 @@ public class ShareHolderCreateAccountController implements Initializable{
 	 *********************/
 	@FXML
 	private Button createBtn;
+    private GlobalFunctions fn = new GlobalFunctions();
 
 	/*********************
 	 * SYSTEM
 	 *********************/
 	@FXML
 	private void back(ActionEvent event)throws Exception{
-		Stage stage = (Stage) menu.getScene().getWindow();
-		Scene scene = menu.getScene();
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("ShareHolderHomeActivity.fxml"));
-		scene.setRoot(loader.load());
-		stage.setScene(scene);
-		stage.show();
+        fn.changeScene(menu,"ShareHolderHomeActivity","Shareholder Home");
 	}
 	@FXML
 	private void close(ActionEvent event) throws Exception{
 		Stage stage = (Stage) menu.getScene().getWindow();
 		stage.setOnCloseRequest(e->{
-			// Alert;
 			System.out.println("Are you sure?");
 		});
 		Platform.exit();
 	}
-
 	@FXML
 	private void about(ActionEvent event) throws Exception{
-		GlobalFunctions ob = new GlobalFunctions();
-		ob.about();
+		fn.about();
 	}
+
 	public void createAccount(ActionEvent event) throws Exception{
 		// Check Form Validation;
 		Alert alert = new Alert(AlertType.ERROR);
@@ -113,7 +107,7 @@ public class ShareHolderCreateAccountController implements Initializable{
 			alert.showAndWait();
 		}
 		else if(nomini.getText().equals("")){
-			alert.setContentText("Input Nomini name.");
+			alert.setContentText("Input Nominee name.");
 			alert.showAndWait();
 		}
 		else if(relation.getText().equals("")){
@@ -132,22 +126,14 @@ public class ShareHolderCreateAccountController implements Initializable{
 			// Change scene;
 			Stage stage = (Stage) createBtn.getScene().getWindow();
 			Scene scene = createBtn.getScene();
-			try {
-				FXMLLoader loader = new FXMLLoader(getClass().getResource("ShareHolderDataActivity.fxml"));
-				scene.setRoot(loader.load());
-				stage.setScene(scene);
-				ShareHolderDataController ob = loader.<ShareHolderDataController>getController();
-				ob.setTable(Integer.toString(getId()));
-				stage.setTitle("Share Holder Account");
-				stage.show();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("ShareHolderDataActivity.fxml"));
+            scene.setRoot(loader.load());
+            stage.setScene(scene);
+            ShareHolderDataController ob = loader.<ShareHolderDataController>getController();
+            ob.setTable(Integer.toString(getId()));
+            stage.setTitle("Share Holder Account");
+            stage.show();
 		}
-
-		// Send user to user data;
-
 	}
 
 	public void storeUser(){
