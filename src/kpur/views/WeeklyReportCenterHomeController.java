@@ -222,9 +222,15 @@ public class WeeklyReportCenterHomeController implements Initializable{
 	* Storing saving data to List
 	********************************/
 	private void fetchingSavingData(DatabaseConnection db) throws Exception{
+		// Clear linked list
+		bfBalance.clear(); rebetList.clear();monthlyCollection.clear();savingReturn.clear();totalBalance.clear();
+		weeklyDeposit.clear();memberName.clear();husbandName.clear();serialNo.clear();
+
 		// Getting savings data from database
 		double bfBal = 0, weeklyDep = 0, rebet = 0 , monthlyCol = 0,savingRet = 0,totalBal = 0;
 		String date1 = " ", date2 = " ";
+
+
 		String sql = "SELECT * FROM weekly_saving WHERE date LIKE '%"+month+"/"+year+"' AND user_id IN (SELECT user_id FROM weekly_user WHERE center_id = '"+centerCode+"') ORDER BY user_id;";
 		ResultSet rs = db.getQuery().executeQuery(sql);
 		int theID = 0, counter = 1;
@@ -241,6 +247,7 @@ public class WeeklyReportCenterHomeController implements Initializable{
 					savingRet = rs.getDouble("saving_return");
 					date2 = rs.getString("date").substring(0,2);
 				}
+				fetchingAccountInfo(theID);
 				counter++;
 			}else{
 				if(rs.getInt("user_id") == theID){
@@ -259,28 +266,32 @@ public class WeeklyReportCenterHomeController implements Initializable{
 					totalBal = rs.getDouble("total_balance");
 				}else{
 					fetchingAccountInfo(theID);
+					rebet = 0; savingRet = 0;
 					theID = rs.getInt("user_id");
 					weeklyDep = rs.getDouble("weekly_deposit");
 					weeklyDeposit.add(((int) weeklyDep));
 					bfBalance.add((int)bfBal);
-//					if(rebet < rs.getDouble("rebet") ){
-//						rebet = rs.getDouble("rebet");
-//						date1 = rs.getString("date").substring(0,2);
-//					}
+					if(rebet < rs.getDouble("rebet") ){
+						rebet = rs.getDouble("rebet");
+						date1 = rs.getString("date").substring(0,2);
+					}
+					if(savingRet < rs.getDouble("saving_return")){
+						savingRet = rs.getDouble("saving_return");
+						date2 = rs.getString("date").substring(0,2);
+					}
 					rebetList.add((int)rebet);
 					rebetDate.add(date1);
 					monthlyCollection.add((int)monthlyCol);
 					savingReturn.add((int)savingRet);
 					savingReturnDate.add(date2);
 					totalBalance.add((int)totalBal);
-					rebet = 0;
-					savingRet = 0;
+
 					date1 = " ";
 					date2 = " ";
 				}
 			}
 		}
-		fetchingAccountInfo(theID);
+
 		bfBalance.add((int)bfBal);
 		rebetList.add((int)rebet);
 		rebetDate.add(date1);
@@ -288,8 +299,8 @@ public class WeeklyReportCenterHomeController implements Initializable{
 		savingReturn.add((int)savingRet);
 		savingReturnDate.add(date2);
 		totalBalance.add((int)totalBal);
-		System.out.println(rebetDate);
-		System.out.println(rebetList);
+		System.out.println(bfBalance);
+		System.out.println(memberName);
 		rs.close();
 	}
 
@@ -430,9 +441,6 @@ public class WeeklyReportCenterHomeController implements Initializable{
 			}
 		}
 
-		// Clear linked list
-		bfBalance.clear(); rebetList.clear();monthlyCollection.clear();savingReturn.clear();totalBalance.clear();
-		weeklyDeposit.clear();memberName.clear();husbandName.clear();serialNo.clear();
 		doc.write(new FileOutputStream(theDirectory + "/output.docx"));
 	}
 
