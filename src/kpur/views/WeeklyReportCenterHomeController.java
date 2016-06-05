@@ -80,8 +80,7 @@ public class WeeklyReportCenterHomeController implements Initializable{
 	private GlobalFunctions fn = new GlobalFunctions();
 	private XWPFDocument doc = new XWPFDocument(OPCPackage.open("tables.docx"));
 
-	public WeeklyReportCenterHomeController() throws IOException, InvalidFormatException {
-	}
+	public WeeklyReportCenterHomeController() throws IOException, InvalidFormatException {}
 
 	/*********************
 	 * METHODS
@@ -141,10 +140,12 @@ public class WeeklyReportCenterHomeController implements Initializable{
 		cbName.getItems().addAll(userList);
 	}
 
-	// Saving data list
+
 	private List<Integer> serialNo = new LinkedList<>();
 	private List<String> memberName = new LinkedList<>();
 	private List<String> husbandName = new LinkedList<>();
+
+	// Saving data list
 	private List<Integer> bfBalance = new LinkedList<>();
 	private List<Integer> weeklyDeposit = new LinkedList<>();
 	private List<Integer> rebetList = new LinkedList<>();
@@ -154,7 +155,7 @@ public class WeeklyReportCenterHomeController implements Initializable{
 	private List<String> savingReturnDate = new LinkedList<>();
 	private List<Integer> totalBalance = new LinkedList<>();
 
-	// Invest data lish
+	// Invest data list
 	private List<Double> investAmount = new LinkedList<>();
 
 	@FXML
@@ -230,7 +231,6 @@ public class WeeklyReportCenterHomeController implements Initializable{
 		double bfBal = 0, weeklyDep = 0, rebet = 0 , monthlyCol = 0,savingRet = 0,totalBal = 0;
 		String date1 = " ", date2 = " ";
 
-
 		String sql = "SELECT * FROM weekly_saving WHERE date LIKE '%"+month+"/"+year+"' AND user_id IN (SELECT user_id FROM weekly_user WHERE center_id = '"+centerCode+"') ORDER BY user_id;";
 		ResultSet rs = db.getQuery().executeQuery(sql);
 		int theID = 0, counter = 1;
@@ -248,7 +248,7 @@ public class WeeklyReportCenterHomeController implements Initializable{
 					date2 = rs.getString("date").substring(0,2);
 				}
 				fetchingAccountInfo(theID);
-				counter++;
+
 			}else{
 				if(rs.getInt("user_id") == theID){
 					bfBal = rs.getDouble("bf_balance");
@@ -265,51 +265,51 @@ public class WeeklyReportCenterHomeController implements Initializable{
 					}
 					totalBal = rs.getDouble("total_balance");
 				}else{
-					fetchingAccountInfo(theID);
-					rebet = 0; savingRet = 0;
+					// Come to this block if find new ID.
+
 					theID = rs.getInt("user_id");
+
+					fetchingAccountInfo(theID); // Fetch new ID information and store to the List.
+
 					weeklyDep = rs.getDouble("weekly_deposit");
 					weeklyDeposit.add(((int) weeklyDep));
-					bfBalance.add((int)bfBal);
+
 					if(rebet < rs.getDouble("rebet") ){
 						rebet = rs.getDouble("rebet");
 						date1 = rs.getString("date").substring(0,2);
 					}
+
 					if(savingRet < rs.getDouble("saving_return")){
 						savingRet = rs.getDouble("saving_return");
 						date2 = rs.getString("date").substring(0,2);
 					}
-					rebetList.add((int)rebet);
-					rebetDate.add(date1);
-					monthlyCollection.add((int)monthlyCol);
-					savingReturn.add((int)savingRet);
-					savingReturnDate.add(date2);
-					totalBalance.add((int)totalBal);
-
-					date1 = " ";
-					date2 = " ";
 				}
 			}
+			if(counter % 5 == 0){
+				bfBalance.add((int)bfBal);
+				rebetList.add((int)rebet);
+				rebetDate.add(date1);
+				savingReturn.add((int)savingRet);
+				savingReturnDate.add(date2);
+				monthlyCollection.add((int)monthlyCol);
+				totalBalance.add((int)totalBal);
+
+				rebet = 0; savingRet = 0;
+				date1 = " ";
+				date2 = " ";
+			}
+			counter++;
 		}
 
-		bfBalance.add((int)bfBal);
-		rebetList.add((int)rebet);
-		rebetDate.add(date1);
-		monthlyCollection.add((int)monthlyCol);
-		savingReturn.add((int)savingRet);
-		savingReturnDate.add(date2);
-		totalBalance.add((int)totalBal);
-		System.out.println(bfBalance);
-		System.out.println(memberName);
+		System.out.println(rebetList);
+		System.out.println(savingReturn);
 		rs.close();
 	}
 
 	/********************************
 	 * Storing invest data to List
 	 ********************************/
-	private void fetchingInvestData() throws Exception{
-
-	}
+	private void fetchingInvestData() throws Exception{}
 
 	/*********************************
 	 * Storing account info to List

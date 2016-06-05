@@ -2,13 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Java Fx/kpur/views/WeeklyEditAccountCtrl.class" afterPath="$PROJECT_DIR$/out/production/Java Fx/kpur/views/WeeklyEditAccountCtrl.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Java Fx/kpur/views/WeeklyReportCenterHomeController.class" afterPath="$PROJECT_DIR$/out/production/Java Fx/kpur/views/WeeklyReportCenterHomeController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Java Fx/kpur/views/WeeklyReportDataCtrl.class" afterPath="$PROJECT_DIR$/out/production/Java Fx/kpur/views/WeeklyReportDataCtrl.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/kpur/views/WeeklyEditAccountCtrl.java" afterPath="$PROJECT_DIR$/src/kpur/views/WeeklyEditAccountCtrl.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/kpur/views/WeeklyReportCenterHomeController.java" afterPath="$PROJECT_DIR$/src/kpur/views/WeeklyReportCenterHomeController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/kpur/views/WeeklyReportDataCtrl.java" afterPath="$PROJECT_DIR$/src/kpur/views/WeeklyReportDataCtrl.java" />
     </list>
     <ignored path="JavaFxApplication.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -92,16 +88,21 @@
       <file leaf-file-name="WeeklyReportCenterHomeController.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/kpur/views/WeeklyReportCenterHomeController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="257" column="35" selection-start-line="257" selection-start-column="35" selection-end-line="257" selection-end-column="35" />
+            <state relative-caret-position="426">
+              <caret line="295" column="0" selection-start-line="295" selection-start-column="0" selection-end-line="295" selection-end-column="0" />
               <folding>
+                <element signature="method#back#0;class#WeeklyReportCenterHomeController#0" expanded="false" />
+                <element signature="method#close#0;class#WeeklyReportCenterHomeController#0" expanded="false" />
+                <element signature="method#createAccount#0;class#WeeklyReportCenterHomeController#0" expanded="false" />
+                <element signature="method#gotoAccount#0;class#WeeklyReportCenterHomeController#0" expanded="false" />
+                <element signature="method#setData#0;class#WeeklyReportCenterHomeController#0" expanded="false" />
                 <element signature="method#exportData#0;class#WeeklyReportCenterHomeController#0" expanded="false" />
-                <element signature="docComment;method#fetchingInvestData#0;class#WeeklyReportCenterHomeController#0" expanded="false" />
                 <element signature="method#fetchingAccountInfo#0;class#WeeklyReportCenterHomeController#0" expanded="false" />
-                <marker date="1465137988585" expanded="true" signature="3882:3943" ph="select name weekly_user" />
-                <marker date="1465137988585" expanded="true" signature="6045:6114" ph="SELECT cente... centers" />
-                <marker date="1465137988585" expanded="true" signature="7289:7455" ph="SELECT * FRO... weekly_saving" />
-                <marker date="1465137988585" expanded="true" signature="10242:10313" ph="SELECT seria... weekly_user" />
+                <element signature="method#exportDataToDocx#0;class#WeeklyReportCenterHomeController#0" expanded="false" />
+                <marker date="1465140756408" expanded="true" signature="3880:3941" ph="select name weekly_user" />
+                <marker date="1465140756408" expanded="true" signature="6045:6114" ph="SELECT cente... centers" />
+                <marker date="1465140756408" expanded="true" signature="7288:7454" ph="SELECT * FRO... weekly_saving" />
+                <marker date="1465140756408" expanded="true" signature="10133:10204" ph="SELECT seria... weekly_user" />
               </folding>
             </state>
           </provider>
@@ -926,7 +927,7 @@
       <workItem from="1464898254395" duration="1245000" />
       <workItem from="1464899922311" duration="3880000" />
       <workItem from="1465105734123" duration="1426000" />
-      <workItem from="1465134201102" duration="2305000" />
+      <workItem from="1465134201102" duration="5053000" />
     </task>
     <task id="LOCAL-00001" summary="Docx">
       <created>1464638163566</created>
@@ -935,11 +936,18 @@
       <option name="project" value="LOCAL" />
       <updated>1464638163566</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Docx">
+      <created>1465138093190</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1465138093190</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="184687000" />
+    <option name="totallyTimeSpent" value="187435000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -960,7 +968,7 @@
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32897863" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32995737" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23240939" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3139659" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32962137" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32850778" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Database Console" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31982943" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
@@ -1040,7 +1048,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="15" />
+      <option name="time" value="17" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1366,16 +1374,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/kpur/views/WeeklyReportCenterHomeController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="257" column="35" selection-start-line="257" selection-start-column="35" selection-end-line="257" selection-end-column="35" />
+        <state relative-caret-position="426">
+          <caret line="295" column="0" selection-start-line="295" selection-start-column="0" selection-end-line="295" selection-end-column="0" />
           <folding>
+            <element signature="method#back#0;class#WeeklyReportCenterHomeController#0" expanded="false" />
+            <element signature="method#close#0;class#WeeklyReportCenterHomeController#0" expanded="false" />
+            <element signature="method#createAccount#0;class#WeeklyReportCenterHomeController#0" expanded="false" />
+            <element signature="method#gotoAccount#0;class#WeeklyReportCenterHomeController#0" expanded="false" />
+            <element signature="method#setData#0;class#WeeklyReportCenterHomeController#0" expanded="false" />
             <element signature="method#exportData#0;class#WeeklyReportCenterHomeController#0" expanded="false" />
-            <element signature="docComment;method#fetchingInvestData#0;class#WeeklyReportCenterHomeController#0" expanded="false" />
             <element signature="method#fetchingAccountInfo#0;class#WeeklyReportCenterHomeController#0" expanded="false" />
-            <marker date="1465137988585" expanded="true" signature="3882:3943" ph="select name weekly_user" />
-            <marker date="1465137988585" expanded="true" signature="6045:6114" ph="SELECT cente... centers" />
-            <marker date="1465137988585" expanded="true" signature="7289:7455" ph="SELECT * FRO... weekly_saving" />
-            <marker date="1465137988585" expanded="true" signature="10242:10313" ph="SELECT seria... weekly_user" />
+            <element signature="method#exportDataToDocx#0;class#WeeklyReportCenterHomeController#0" expanded="false" />
+            <marker date="1465140756408" expanded="true" signature="3880:3941" ph="select name weekly_user" />
+            <marker date="1465140756408" expanded="true" signature="6045:6114" ph="SELECT cente... centers" />
+            <marker date="1465140756408" expanded="true" signature="7288:7454" ph="SELECT * FRO... weekly_saving" />
+            <marker date="1465140756408" expanded="true" signature="10133:10204" ph="SELECT seria... weekly_user" />
           </folding>
         </state>
       </provider>
