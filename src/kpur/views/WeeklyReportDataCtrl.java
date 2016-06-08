@@ -252,49 +252,58 @@ public class WeeklyReportDataCtrl implements Initializable{
 	 *************************/
 	@FXML
 	void savingEntry() throws Exception{
-		LocalDate dated = dpSavingDeposit.getValue();
-		String theDate = GlobalFunctions.formatDate(dated.toString());
+		if(savingTable.getItems().size() < 5){
+			LocalDate dated = dpSavingDeposit.getValue();
+			String theDate = GlobalFunctions.formatDate(dated.toString());
 
-        double deposit = 0, rebet = 0, savingReturn = 0;
-		int transID = 0;
+			double deposit = 0, rebet = 0, savingReturn = 0;
+			int transID = 0;
 
-		if(!tfDeposit.getText().isEmpty()){
-			deposit = Double.parseDouble(tfDeposit.getText());
-		}
-		if(!tfRebet.getText().isEmpty()){
-			rebet = Double.parseDouble(tfRebet.getText());
-		}
-		if(!tfSavingReturn.getText().isEmpty()){
-			savingReturn = Double.parseDouble(tfSavingReturn.getText());
-		}
+			if(!tfDeposit.getText().isEmpty()){
+				deposit = Double.parseDouble(tfDeposit.getText());
+			}
+			if(!tfRebet.getText().isEmpty()){
+				rebet = Double.parseDouble(tfRebet.getText());
+			}
+			if(!tfSavingReturn.getText().isEmpty()){
+				savingReturn = Double.parseDouble(tfSavingReturn.getText());
+			}
 
-		savingCurrentMonthlyCollection += (deposit+rebet);
-		savingCurrentTotalBalance += ((deposit+rebet)-savingReturn);
+			savingCurrentMonthlyCollection += (deposit+rebet);
+			savingCurrentTotalBalance += ((deposit+rebet)-savingReturn);
 
 		/*
 		 * Put data into database;
 		 */
-		DatabaseConnection db = new DatabaseConnection();
-		db.puts("INSERT INTO weekly_saving (user_id, date, bf_balance, weekly_deposit, rebet, monthly_collection, saving_return, total_balance) VALUES ("
-			+ "'"+theID +"',"
-			+ "'"+ theDate +"',"
-			+ "'"+ savingCurrentBfBalance +"',"
-			+ "'"+ deposit +"',"
-			+ "'"+ rebet +"',"
-			+ "'"+ savingCurrentMonthlyCollection +"',"
-			+ "'"+ savingReturn +"',"
-			+ "'"+ savingCurrentTotalBalance +"');");
+			DatabaseConnection db = new DatabaseConnection();
+			db.puts("INSERT INTO weekly_saving (user_id, date, bf_balance, weekly_deposit, rebet, monthly_collection, saving_return, total_balance) VALUES ("
+					+ "'"+theID +"',"
+					+ "'"+ theDate +"',"
+					+ "'"+ savingCurrentBfBalance +"',"
+					+ "'"+ deposit +"',"
+					+ "'"+ rebet +"',"
+					+ "'"+ savingCurrentMonthlyCollection +"',"
+					+ "'"+ savingReturn +"',"
+					+ "'"+ savingCurrentTotalBalance +"');");
 
-		db.setQuery(db.connect().createStatement());
-		String sql = "select trans_id from weekly_saving order by trans_id desc limit 1;";
-		ResultSet rs = db.getQuery().executeQuery(sql);
-		while(rs.next()){
-			transID = Integer.parseInt(rs.getString("trans_id"));
+			db.setQuery(db.connect().createStatement());
+			String sql = "select trans_id from weekly_saving order by trans_id desc limit 1;";
+			ResultSet rs = db.getQuery().executeQuery(sql);
+			while(rs.next()){
+				transID = Integer.parseInt(rs.getString("trans_id"));
+			}
+			rs.close();
+			db.connect().close();
+
+			savingTableData.add(new WeeklySavingDepositData(theDate, savingCurrentBfBalance, deposit, rebet, savingCurrentMonthlyCollection, savingReturn, savingCurrentTotalBalance, transID));
+		}else{
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Sorry");
+			alert.setHeaderText(null);
+			alert.setContentText("You can not input more than 5 transaction in a month.");
+			alert.showAndWait();
 		}
-		rs.close();
-		db.connect().close();
 
-		savingTableData.add(new WeeklySavingDepositData(theDate, savingCurrentBfBalance, deposit, rebet, savingCurrentMonthlyCollection, savingReturn, savingCurrentTotalBalance, transID));
 	}
 
 	/***********************************
@@ -344,79 +353,86 @@ public class WeeklyReportDataCtrl implements Initializable{
 
 	@FXML
 	void investEntry() throws Exception{
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Fix the following error!");
+		alert.setHeaderText(null);
+		alert.setContentText("Please insert the date.");
+		if(investmentTable.getItems().size() < 5){
+			int transID = 0;
+			double theTotalBalance;
 
-        Alert alert = new Alert(AlertType.CONFIRMATION);
-        alert.setTitle("Fix the following error!");
-        alert.setHeaderText(null);
-        alert.setContentText("Please insert the date.");
+			if(dpInvestment.getValue() == null){
+				alert.showAndWait();
+			}
+			else
+			{
+				LocalDate dated = dpInvestment.getValue();
+				String theDate = GlobalFunctions.formatDate(dated.toString());
 
-        int transID = 0;
-		double theTotalBalance;
+				if(!tfProjectNo.getText().isEmpty()) theProjectNo = Double.parseDouble(tfProjectNo.getText());
+				if(!tfODLastMonth.getText().isEmpty()) theODLastMonth = Double.parseDouble(tfODLastMonth.getText());
+				if(!tfInvestmentCBM.getText().isEmpty()) theInvestCBM = Double.parseDouble(tfInvestmentCBM.getText());
+				if(!tfLastMonthOS.getText().isEmpty()) theLastMonthOutStanding = Double.parseDouble(tfLastMonthOS.getText());
+				if(!tfDisbudsCurrentMonth.getText().isEmpty()) theDisbudsCurrentMonth = Double.parseDouble(tfDisbudsCurrentMonth.getText());
+				if(!tfWeeklyInstalment.getText().isEmpty()) theWeeklyInstalment = Double.parseDouble(tfWeeklyInstalment.getText());
 
-		if(dpInvestment.getValue() == null){
+
+
+				theTotalBalance = theLastMonthOutStanding + theDisbudsCurrentMonth;
+				theTotalCollection += theWeeklyInstalment;
+				theTotalOutStanding = (theTotalBalance - theTotalCollection);
+
+				if(cbInstalmentAmount.isSelected()){
+					theInstalmentAmount = (theInvestDisbudsAmount+(theInvestDisbudsAmount * 15)/100)/46;
+				}
+
+				/*
+				 * Put data into database;
+				 */
+				DatabaseConnection db = new DatabaseConnection();
+				db.puts("INSERT INTO weekly_invest (user_id, date, investment_amount, " +
+						"instolment_amount, project_no, od_last_month, investment_cbm, " +
+						"last_month_outstanding, disbuds_current_month, total_balance_inv, " +
+						"weekly_instolment, total_collection, total_outstanding) VALUES ("
+						+ "'"+theID +"',"
+						+ "'"+ theDate +"',"
+						+ "'"+ theInvestDisbudsAmount +"',"
+						+ "'"+ theInstalmentAmount +"',"
+						+ "'"+ theProjectNo +"',"
+						+ "'"+ theODLastMonth +"',"
+						+ "'"+ theInvestCBM +"',"
+						+ "'"+ theLastMonthOutStanding +"',"
+						+ "'"+ theDisbudsCurrentMonth +"',"
+						+ "'"+ theTotalBalance +"',"
+						+ "'"+ theWeeklyInstalment +"',"
+						+ "'"+ theTotalCollection +"',"
+						+ "'"+ theTotalOutStanding +"');");
+
+				db.setQuery(db.connect().createStatement());
+				String sql = "select trans_id from weekly_invest order by trans_id desc limit 1;";
+				ResultSet rs = db.getQuery().executeQuery(sql);
+				while(rs.next()){
+					transID = Integer.parseInt(rs.getString("trans_id"));
+				}
+				rs.close();
+				db.connect().close();
+
+				investTableData.add(new WeeklyInvestData(theDate,theInvestDisbudsAmount,theInstalmentAmount,theProjectNo,theODLastMonth,theInvestCBM,theLastMonthOutStanding,theDisbudsCurrentMonth,theTotalBalance,theWeeklyInstalment,theTotalCollection,theTotalOutStanding,transID));
+
+				// Reset Everything;
+				tfProjectNo.clear();tfODLastMonth.clear();tfInvestmentCBM.clear();tfLastMonthOS.clear();tfDisbudsCurrentMonth.clear();
+				tfWeeklyInstalment.clear();
+				theInstalmentAmount = 0; theProjectNo = 0; theODLastMonth = 0; theInvestCBM = 0; theWeeklyInstalment = 0;
+
+			}
+		}else{
+			alert.setAlertType(AlertType.ERROR);
+			alert.setTitle("Sorry");
+			alert.setHeaderText(null);
+			alert.setContentText("You can not input more than 5 transaction in a month.");
 			alert.showAndWait();
 		}
-		else
-		{
-			LocalDate dated = dpInvestment.getValue();
-			String theDate = GlobalFunctions.formatDate(dated.toString());
 
-			if(!tfProjectNo.getText().isEmpty()) theProjectNo = Double.parseDouble(tfProjectNo.getText());
-			if(!tfODLastMonth.getText().isEmpty()) theODLastMonth = Double.parseDouble(tfODLastMonth.getText());
-			if(!tfInvestmentCBM.getText().isEmpty()) theInvestCBM = Double.parseDouble(tfInvestmentCBM.getText());
-			if(!tfLastMonthOS.getText().isEmpty()) theLastMonthOutStanding = Double.parseDouble(tfLastMonthOS.getText());
-			if(!tfDisbudsCurrentMonth.getText().isEmpty()) theDisbudsCurrentMonth = Double.parseDouble(tfDisbudsCurrentMonth.getText());
-			if(!tfWeeklyInstalment.getText().isEmpty()) theWeeklyInstalment = Double.parseDouble(tfWeeklyInstalment.getText());
-
-
-
-			theTotalBalance = theLastMonthOutStanding + theDisbudsCurrentMonth;
-			theTotalCollection += theWeeklyInstalment;
-			theTotalOutStanding = (theTotalBalance - theTotalCollection);
-
-			if(cbInstalmentAmount.isSelected()){
-				theInstalmentAmount = (theInvestDisbudsAmount+(theInvestDisbudsAmount * 15)/100)/46;
-			}
-
-        /*
-		 * Put data into database;
-		 */
-		DatabaseConnection db = new DatabaseConnection();
-        db.puts("INSERT INTO weekly_invest (user_id, date, investment_amount, " +
-                "instolment_amount, project_no, od_last_month, investment_cbm, " +
-                "last_month_outstanding, disbuds_current_month, total_balance_inv, " +
-                "weekly_instolment, total_collection, total_outstanding) VALUES ("
-                + "'"+theID +"',"
-                + "'"+ theDate +"',"
-                + "'"+ theInvestDisbudsAmount +"',"
-                + "'"+ theInstalmentAmount +"',"
-                + "'"+ theProjectNo +"',"
-                + "'"+ theODLastMonth +"',"
-                + "'"+ theInvestCBM +"',"
-                + "'"+ theLastMonthOutStanding +"',"
-                + "'"+ theDisbudsCurrentMonth +"',"
-                + "'"+ theTotalBalance +"',"
-                + "'"+ theWeeklyInstalment +"',"
-                + "'"+ theTotalCollection +"',"
-                + "'"+ theTotalOutStanding +"');");
-
-			db.setQuery(db.connect().createStatement());
-			String sql = "select trans_id from weekly_invest order by trans_id desc limit 1;";
-			ResultSet rs = db.getQuery().executeQuery(sql);
-			while(rs.next()){
-				transID = Integer.parseInt(rs.getString("trans_id"));
-			}
-			rs.close();
-			db.connect().close();
-
-			investTableData.add(new WeeklyInvestData(theDate,theInvestDisbudsAmount,theInstalmentAmount,theProjectNo,theODLastMonth,theInvestCBM,theLastMonthOutStanding,theDisbudsCurrentMonth,theTotalBalance,theWeeklyInstalment,theTotalCollection,theTotalOutStanding,transID));
-
-			// Reset Everything;
-			tfProjectNo.clear();tfODLastMonth.clear();tfInvestmentCBM.clear();tfLastMonthOS.clear();tfDisbudsCurrentMonth.clear();
-			tfWeeklyInstalment.clear();
-			theInstalmentAmount = 0; theProjectNo = 0; theODLastMonth = 0; theInvestCBM = 0; theWeeklyInstalment = 0;
-
-		}
 
 	}
 

@@ -19,7 +19,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
-import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import kpur.model.DatabaseConnection;
 import kpur.model.GlobalFunctions;
@@ -78,7 +78,6 @@ public class WeeklyReportCenterHomeController implements Initializable{
 	private String month, year, centerName, theDirectory, fsName;
 
 	private GlobalFunctions fn = new GlobalFunctions();
-	private XWPFDocument doc = new XWPFDocument(OPCPackage.open("tables.docx"));
 
 	public WeeklyReportCenterHomeController() throws IOException, InvalidFormatException {}
 
@@ -156,7 +155,19 @@ public class WeeklyReportCenterHomeController implements Initializable{
 	private List<Integer> totalBalance = new LinkedList<>();
 
 	// Invest data list
-	private List<Double> investAmount = new LinkedList<>();
+	private List<Integer> investAmount = new LinkedList<>();
+	private List<String> investAmountDate = new LinkedList<>();
+	private List<Integer> instalmentAmount = new LinkedList<>();
+	private List<Integer> projectNo = new LinkedList<>();
+	private List<Integer> odLastMonth = new LinkedList<>();
+	private List<Integer> investmentCBM = new LinkedList<>();
+	private List<Integer> lastMonthOutstanding = new LinkedList<>();
+	private List<Integer> disbudsCurrentMonth = new LinkedList<>();
+	private List<Integer> totalBalanceInv = new LinkedList<>();
+	private List<Integer> weeklyInstalment = new LinkedList<>();
+	private List<Integer> totalCollection = new LinkedList<>();
+	private List<Integer> totalOutstanding = new LinkedList<>();
+
 
 	@FXML
 	public void exportData() throws Exception{
@@ -173,9 +184,10 @@ public class WeeklyReportCenterHomeController implements Initializable{
 			progress.setProgress(0.1); // Progress indicator
 
 			// Directory chooser
-			DirectoryChooser chooser = new DirectoryChooser();
-			chooser.setTitle("JavaFX Projects");
-			File selectedDirectory = chooser.showDialog(stage);
+			FileChooser chooser = new FileChooser();
+			chooser.setTitle("Shihab Mridha");
+			chooser.setInitialFileName(month + " " + year);
+			File selectedDirectory = chooser.showSaveDialog(stage);
 			if(selectedDirectory == null){
 				txtDirError.setText("No Directory selected!");
 			}else{
@@ -203,7 +215,9 @@ public class WeeklyReportCenterHomeController implements Initializable{
 				fetchingSavingData(db);
 
 				// Fetching invest data
-				fetchingInvestData();
+				fetchingInvestData(db);
+
+
 				db.connect().close();
 
 				exportDataToDocx();
@@ -228,7 +242,7 @@ public class WeeklyReportCenterHomeController implements Initializable{
 		weeklyDeposit.clear();memberName.clear();husbandName.clear();serialNo.clear();
 
 		// Getting savings data from database
-		double bfBal = 0, weeklyDep = 0, rebet = 0 , monthlyCol = 0,savingRet = 0,totalBal = 0;
+		double bfBal = 0, weeklyDep, rebet = 0 , monthlyCol = 0,savingRet = 0,totalBal = 0;
 		String date1 = " ", date2 = " ";
 
 		String sql = "SELECT * FROM weekly_saving WHERE date LIKE '%"+month+"/"+year+"' AND user_id IN (SELECT user_id FROM weekly_user WHERE center_id = '"+centerCode+"') ORDER BY user_id;";
@@ -300,16 +314,41 @@ public class WeeklyReportCenterHomeController implements Initializable{
 			}
 			counter++;
 		}
-
-		System.out.println(rebetList);
-		System.out.println(savingReturn);
 		rs.close();
 	}
 
 	/********************************
 	 * Storing invest data to List
 	 ********************************/
-	private void fetchingInvestData() throws Exception{}
+	private void fetchingInvestData(DatabaseConnection db) throws Exception{
+		investAmount.clear(); investAmountDate.clear(); instalmentAmount.clear(); projectNo.clear(); odLastMonth.clear(); investmentCBM.clear(); lastMonthOutstanding.clear();
+		disbudsCurrentMonth.clear(); totalBalanceInv.clear(); weeklyInstalment.clear(); totalCollection.clear(); totalOutstanding.clear();
+
+
+		String sql = "SELECT * FROM weekly_invest WHERE date LIKE '%"+month+"/"+year+"' AND user_id IN (SELECT user_id FROM weekly_user WHERE center_id = '"+centerCode+"') ORDER BY user_id;";
+		ResultSet rs = db.getQuery().executeQuery(sql);
+
+		int theID = rs.getInt("user_id"), counter = 1;
+
+		while (rs.next()){
+
+			if(theID == rs.getInt("user_id")){
+				weeklyInstalment.add((int) rs.getDouble("weekly_instolment"));
+			}else{
+				theID = rs.getInt("user_id");
+			}
+
+
+			if(counter % 5 == 0){
+
+			}
+			counter++;
+		}
+
+		System.out.println(weeklyInstalment);
+
+		rs.close();
+	}
 
 	/*********************************
 	 * Storing account info to List
@@ -329,17 +368,49 @@ public class WeeklyReportCenterHomeController implements Initializable{
 	}
 
 	/*********************************
+	 * Create table to the .docx file
+	 ********************************/
+//	private void createNewRow() throws Exception{
+//		XWPFDocument doc = new XWPFDocument(OPCPackage.open("tables.docx"));
+//		List<XWPFTable> tbl = doc.getTables();
+//		XWPFTableRow nr = tbl.get(1).getRow(3);
+//		for(int i = 1; i < serialNo.size(); i++){
+//			tbl.get(1).addRow(nr);
+//		}
+//		doc.write(new FileOutputStream(theDirectory + ".docx"));
+//	}
+
+	/*********************************
 	 * Writing .docx file
 	 ********************************/
 	private void exportDataToDocx() throws Exception{
+		//createNewRow();
 		progress.setProgress(0.4); // Progress indicator
 
-		for (XWPFTable tbl : doc.getTables()) {
+
+		if(serialNo.size() > 1){
+			XWPFDocument doc = new XWPFDocument(OPCPackage.open("tables.docx"));
+			List<XWPFTable> tbl = doc.getTables();
+			XWPFTableRow nr = tbl.get(1).getRow(3);
+			for(int i = 1; i < serialNo.size(); i++){
+				tbl.get(1).addRow(nr);
+			}
+			doc.write(new FileOutputStream("temp.docx"));
+		}
+
+		XWPFDocument newDoc = new XWPFDocument(OPCPackage.open("temp.docx"));
+
+		progress.setProgress(0.5); // Progress indicator
+
+		int i = 0, j = 0;
+		for (XWPFTable tbl : newDoc.getTables()) {
 			for (XWPFTableRow row : tbl.getRows()) {
 				for (XWPFTableCell cell : row.getTableCells()) {
 					for (XWPFParagraph p : cell.getParagraphs()) {
 						for (XWPFRun r : p.getRuns()) {
 							String text = r.getText(0);
+
+							// Setting branch info
 							if (text.contains("CC")) {
 								text = text.replace("CC", Integer.toString(centerCode));
 								r.setText(text, 0);
@@ -352,40 +423,24 @@ public class WeeklyReportCenterHomeController implements Initializable{
 								text = text.replace("MONX", selectMonth.getValue()+"/"+selectYear.getValue());
 								r.setText(text, 0);
 							}
-						}
-					}
-				}
-			}
-		}
 
-		progress.setProgress(0.5); // Progress indicator
-
-		int i = 0, j = 0;
-		for (XWPFTable tbl : doc.getTables()) {
-			for (XWPFTableRow row : tbl.getRows()) {
-				for (XWPFTableCell cell : row.getTableCells()) {
-					for (XWPFParagraph p : cell.getParagraphs()) {
-						for (XWPFRun r : p.getRuns()) {
-							String text = r.getText(0);
-
+							// Setting Saving Table Data
 							if (text.contains("SL") && i < serialNo.size()) {
 								text = text.replace("SL",serialNo.get(i).toString());
 								r.setText(text, 0);
 							}
-
 							if (text.contains("NMX") && i < memberName.size()) {
-								text = text.replace("NMX",memberName.get(i).toString());
+								text = text.replace("NMX",memberName.get(i));
 								r.setText(text, 0);
 							}
 							if (text.contains("HBX") && i < husbandName.size()) {
-								text = text.replace("HBX",husbandName.get(i).toString());
+								text = text.replace("HBX",husbandName.get(i));
 								r.setText(text, 0);
 							}
 							if (text.contains("BFX") && i < bfBalance.size()) {
 								text = text.replace("BFX",bfBalance.get(i).toString());
 								r.setText(text, 0);
 							}
-
 							if (text.contains("D1") && j < weeklyDeposit.size()) {
 								text = text.replace("D1",weeklyDeposit.get(j).toString());
 								r.setText(text, 0); j++;
@@ -406,17 +461,14 @@ public class WeeklyReportCenterHomeController implements Initializable{
 								text = text.replace("D5",weeklyDeposit.get(j).toString());
 								r.setText(text, 0); j++;
 							}
-
 							if (text.contains("RB") && i < rebetList.size()) {
 								text = text.replace("RB",rebetList.get(i).toString());
 								r.setText(text, 0);
 							}
-
 							if (text.contains("DR") && i < rebetDate.size()) {
 								text = text.replace("DR", rebetDate.get(i));
 								r.setText(text, 0);
 							}
-
 							if (text.contains("MNC") && i < monthlyCollection.size()) {
 								text = text.replace("MNC",monthlyCollection.get(i).toString());
 								r.setText(text, 0);
@@ -429,19 +481,24 @@ public class WeeklyReportCenterHomeController implements Initializable{
 								text = text.replace("SD", savingReturnDate.get(i));
 								r.setText(text, 0);
 							}
-
 							if (text.contains("TB") && i < totalBalance.size()) {
 								text = text.replace("TB",totalBalance.get(i).toString());
 								r.setText(text, 0);
 								i++;
 							}
+
+							// Setting Invest Table Data
+
 						}
 					}
 				}
 			}
 		}
+		newDoc.write(new FileOutputStream(theDirectory + ".docx"));
+		newDoc.close();
 
-		doc.write(new FileOutputStream(theDirectory + "/output.docx"));
+		File temp = new File("temp.docx");
+		temp.delete();
 	}
 
 	@FXML
