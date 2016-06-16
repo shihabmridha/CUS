@@ -242,7 +242,6 @@ public class WeeklyReportDataCtrl implements Initializable{
 		theCenter = centerCode;
         String[] parts = today.split("/");
 		month = parts[1];
-		month = "05";
 		year = parts[2];
 		gettingPrimaryDataFromDB();
 	}

@@ -26,6 +26,7 @@ import kpur.model.GlobalFunctions;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.xwpf.usermodel.*;
+import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTTxbxContent;
 
 public class WeeklyReportCenterHomeController implements Initializable{
 	/*********************
@@ -129,7 +130,7 @@ public class WeeklyReportCenterHomeController implements Initializable{
 		txtCenterCode.setText(Integer.toString(centerCode));
 		DatabaseConnection ob = new DatabaseConnection();
 		ob.setQuery(ob.connect().createStatement());
-		ResultSet rs = ob.getQuery().executeQuery("select name from weekly_user where center_id='"+centerCode+"'");
+		ResultSet rs = ob.getQuery().executeQuery("select name from weekly_user where center_id='"+centerCode+"' ORDER BY name;");
 		while(rs.next()){
 			userList.add(rs.getString("name"));
 		}
@@ -140,7 +141,7 @@ public class WeeklyReportCenterHomeController implements Initializable{
 	}
 
 
-	private List<Integer> serialNo = new LinkedList<>();
+	private List<String> serialNo = new LinkedList<>();
 	private List<String> memberName = new LinkedList<>();
 	private List<String> husbandName = new LinkedList<>();
 
@@ -155,12 +156,12 @@ public class WeeklyReportCenterHomeController implements Initializable{
 	private List<Integer> totalBalance = new LinkedList<>();
 
 	// Invest data list
-	private List<Integer> investAmount = new LinkedList<>();
+	private List<String> investAmount = new LinkedList<>();
 	private List<String> investAmountDate = new LinkedList<>();
-	private List<Integer> instalmentAmount = new LinkedList<>();
-	private List<Integer> projectNo = new LinkedList<>();
-	private List<Integer> odLastMonth = new LinkedList<>();
-	private List<Integer> investmentCBM = new LinkedList<>();
+	private List<String> instalmentAmount = new LinkedList<>();
+	private List<String> projectNo = new LinkedList<>();
+	private List<String> odLastMonth = new LinkedList<>();
+	private List<String> investmentCBM = new LinkedList<>();
 	private List<Integer> lastMonthOutstanding = new LinkedList<>();
 	private List<Integer> disbudsCurrentMonth = new LinkedList<>();
 	private List<Integer> totalBalanceInv = new LinkedList<>();
@@ -217,6 +218,21 @@ public class WeeklyReportCenterHomeController implements Initializable{
 				// Fetching invest data
 				fetchingInvestData(db);
 
+				serialNo.add(" ");
+				memberName.add("Total = ");
+				husbandName.add(" ");
+				rebetDate.add(" ");
+				savingReturnDate.add(" ");
+
+				investAmountDate.add(" ");
+				investAmount.add(" ");
+				investAmountDate.add(" ");
+				instalmentAmount.add(" ");
+				projectNo.add(" ");
+				odLastMonth.add(" ");
+				investmentCBM.add(" ");
+
+
 
 				db.connect().close();
 
@@ -247,12 +263,18 @@ public class WeeklyReportCenterHomeController implements Initializable{
 
 		String sql = "SELECT * FROM weekly_saving WHERE date LIKE '%"+month+"/"+year+"' AND user_id IN (SELECT user_id FROM weekly_user WHERE center_id = '"+centerCode+"') ORDER BY user_id;";
 		ResultSet rs = db.getQuery().executeQuery(sql);
-		int theID = 0, counter = 1;
+
+		int theID = 0, counter = 1, track = 1;
+		int sumOfBfBalance = 0, sumOfRebet = 0, sumOfMonthlyCollection = 0, sumOfSavingReturn = 0, sumOfTotalbalance = 0;
+		int sumOfDay1 = 0, sumOfDay2 = 0, sumOfDay3 = 0, sumOfDay4 = 0, sumOfDay5 = 0;
+
 		txtDirError.setText("Fetching savings data."); // Custom message
 		while (rs.next()){
 			if(counter == 1){
 				theID = rs.getInt("user_id");
 				weeklyDeposit.add(((int) rs.getDouble("weekly_deposit")));
+				sumOfDay1 += (int) rs.getDouble("weekly_deposit");
+
 				if(rebet < rs.getDouble("rebet") ) {
 					rebet = rs.getDouble("rebet");
 					date1 = rs.getString("date").substring(0,2);
@@ -262,12 +284,29 @@ public class WeeklyReportCenterHomeController implements Initializable{
 					date2 = rs.getString("date").substring(0,2);
 				}
 				fetchingAccountInfo(theID);
-
+				track++;
 			}else{
 				if(rs.getInt("user_id") == theID){
 					bfBal = rs.getDouble("bf_balance");
 					weeklyDep = rs.getDouble("weekly_deposit");
 					weeklyDeposit.add(((int) weeklyDep));
+
+					if(track == 1){
+						sumOfDay1 += (int) rs.getDouble("weekly_deposit");
+					}
+					if(track == 2){
+						sumOfDay2 += (int) rs.getDouble("weekly_deposit");
+					}
+					else if (track == 3){
+						sumOfDay3 += (int) rs.getDouble("weekly_deposit");
+					}
+					else if (track == 4){
+						sumOfDay4 += (int) rs.getDouble("weekly_deposit");
+					}
+					else if(track == 5){
+						sumOfDay5 += (int) rs.getDouble("weekly_deposit");
+					}
+
 					if(rebet < rs.getDouble("rebet") ){
 						rebet = rs.getDouble("rebet");
 						date1 = rs.getString("date").substring(0,2);
@@ -278,42 +317,64 @@ public class WeeklyReportCenterHomeController implements Initializable{
 						date2 = rs.getString("date").substring(0,2);
 					}
 					totalBal = rs.getDouble("total_balance");
+					track++;
 				}else{
 					// Come to this block if find new ID.
-
 					theID = rs.getInt("user_id");
-
 					fetchingAccountInfo(theID); // Fetch new ID information and store to the List.
 
 					weeklyDep = rs.getDouble("weekly_deposit");
 					weeklyDeposit.add(((int) weeklyDep));
 
+					if(track == 1){
+						sumOfDay1 += (int) rs.getDouble("weekly_deposit");
+					}
+					if(track == 2 && track < 5){
+						sumOfDay2 += (int) rs.getDouble("weekly_deposit");
+					}
+					else if (track == 3 && track < 5){
+						sumOfDay3 += (int) rs.getDouble("weekly_deposit");
+					}
+					else if (track == 4 && counter != 1){
+						sumOfDay4 += (int) rs.getDouble("weekly_deposit");
+					}
+					else if(track == 5){
+						sumOfDay5 += (int) rs.getDouble("weekly_deposit");
+					}
+
 					if(rebet < rs.getDouble("rebet") ){
 						rebet = rs.getDouble("rebet");
 						date1 = rs.getString("date").substring(0,2);
 					}
-
 					if(savingRet < rs.getDouble("saving_return")){
 						savingRet = rs.getDouble("saving_return");
 						date2 = rs.getString("date").substring(0,2);
 					}
+					track++;
 				}
 			}
 			if(counter % 5 == 0){
 				bfBalance.add((int)bfBal);
+				sumOfBfBalance += (int) bfBal;
 				rebetList.add((int)rebet);
+				sumOfRebet += (int) rebet;
 				rebetDate.add(date1);
 				savingReturn.add((int)savingRet);
+				sumOfSavingReturn += (int) savingRet;
 				savingReturnDate.add(date2);
 				monthlyCollection.add((int)monthlyCol);
+				sumOfMonthlyCollection += (int) monthlyCol;
 				totalBalance.add((int)totalBal);
+				sumOfTotalbalance += (int) totalBal;
 
-				rebet = 0; savingRet = 0;
+				rebet = 0; savingRet = 0; track = 1;
 				date1 = " ";
 				date2 = " ";
 			}
 			counter++;
 		}
+		bfBalance.add(sumOfBfBalance); rebetList.add(sumOfRebet); savingReturn.add(sumOfSavingReturn); monthlyCollection.add(sumOfMonthlyCollection); totalBalance.add(sumOfTotalbalance);
+		weeklyDeposit.add(sumOfDay1); weeklyDeposit.add(sumOfDay2); weeklyDeposit.add(sumOfDay3); weeklyDeposit.add(sumOfDay4); weeklyDeposit.add(sumOfDay5);
 		rs.close();
 	}
 
@@ -328,25 +389,89 @@ public class WeeklyReportCenterHomeController implements Initializable{
 		String sql = "SELECT * FROM weekly_invest WHERE date LIKE '%"+month+"/"+year+"' AND user_id IN (SELECT user_id FROM weekly_user WHERE center_id = '"+centerCode+"') ORDER BY user_id;";
 		ResultSet rs = db.getQuery().executeQuery(sql);
 
-		int theID = rs.getInt("user_id"), counter = 1;
+		int theID = rs.getInt("user_id"), counter = 1, proNo = 0, track = 1;
+		double installAmount = 0, odLast = 0, invCBM = 0;
+		int sumOfLastMonthOutStanding = 0, sumOfDisbudsCurrentMonth = 0, sumOfTotalBalance = 0, sumOfTotalCollection = 0, sumOfTotalOutStanding = 0;
+		int sumOfDay6 = 0, sumOfDay7 = 0, sumOfDay8 = 0, sumOfDay9 = 0, sumOfDay10 = 0;
 
 		while (rs.next()){
 
 			if(theID == rs.getInt("user_id")){
 				weeklyInstalment.add((int) rs.getDouble("weekly_instolment"));
+
+				if(track == 1) {
+					sumOfDay6 += (int) rs.getDouble("weekly_instolment");
+				}
+				else if(track == 2 ){
+					sumOfDay7 += (int) rs.getDouble("weekly_instolment");
+				}
+				else if (track == 3){
+					sumOfDay8 += (int) rs.getDouble("weekly_instolment");
+				}
+				else if (track == 4){
+					sumOfDay9 += (int) rs.getDouble("weekly_instolment");
+				}
+				else if(track == 5){
+					sumOfDay10 += (int) rs.getDouble("weekly_instolment");
+				}
+
+
+				if(rs.getDouble("instolment_amount") != 0) installAmount = rs.getDouble("instolment_amount");
+				if(rs.getInt("project_no") != 0) proNo = rs.getInt("project_no");
+				if(rs.getDouble("od_last_month") != 0) odLast = rs.getDouble("od_last_month");
+				if(rs.getDouble("investment_cbm") != 0) invCBM = rs.getDouble("investment_cbm");
 			}else{
 				theID = rs.getInt("user_id");
+				weeklyInstalment.add((int) rs.getDouble("weekly_instolment"));
+				if(track == 1 && track < 5) {
+					sumOfDay6 += (int) rs.getDouble("weekly_instolment");
+				}
+				else if(track == 2 && track < 5){
+					sumOfDay7 += (int) rs.getDouble("weekly_instolment");
+				}
+				else if (track == 3 && track < 5){
+					sumOfDay8 += (int) rs.getDouble("weekly_instolment");
+				}
+				else if (track == 4){
+					sumOfDay9 += (int) rs.getDouble("weekly_instolment");
+				}
+				else if(track == 5){
+					sumOfDay10 += (int) rs.getDouble("weekly_instolment");
+				}
+
+				if(rs.getDouble("instolment_amount") != 0) installAmount = rs.getDouble("instolment_amount");
+				if(rs.getInt("project_no") != 0) proNo = rs.getInt("project_no");
+				if(rs.getDouble("od_last_month") != 0) odLast = rs.getDouble("od_last_month");
+				if(rs.getDouble("investment_cbm") != 0) invCBM = rs.getDouble("investment_cbm");
 			}
 
-
+			track++;
 			if(counter % 5 == 0){
+				investAmountDate.add(" ");
+				investAmount.add( Double.toString(rs.getDouble("investment_amount")));
+				instalmentAmount.add(Integer.toString((int)installAmount));
+				projectNo.add(Integer.toString(proNo));
+				odLastMonth.add(Integer.toString((int)odLast));
+				investmentCBM.add(Integer.toString((int)invCBM));
 
+				lastMonthOutstanding.add((int) rs.getDouble("last_month_outstanding"));
+				sumOfLastMonthOutStanding += (int) rs.getDouble("last_month_outstanding");
+				disbudsCurrentMonth.add((int) rs.getDouble("disbuds_current_month"));
+				sumOfDisbudsCurrentMonth += (int) rs.getDouble("disbuds_current_month");
+				totalBalanceInv.add((int) rs.getDouble("total_balance_inv"));
+				sumOfTotalBalance += (int) rs.getDouble("total_balance_inv");
+				totalCollection.add((int) rs.getDouble("total_collection"));
+				sumOfTotalCollection += (int) rs.getDouble("total_collection");
+				totalOutstanding.add((int) rs.getDouble("total_outstanding"));
+				sumOfTotalOutStanding += (int) rs.getDouble("total_outstanding");
+
+				proNo = 0; odLast = 0; installAmount = 0; track = 1;
 			}
 			counter++;
 		}
-
-		System.out.println(weeklyInstalment);
-
+		lastMonthOutstanding.add(sumOfLastMonthOutStanding); disbudsCurrentMonth.add(sumOfDisbudsCurrentMonth); totalBalanceInv.add(sumOfTotalBalance); totalCollection.add(sumOfTotalCollection);
+		totalOutstanding.add(sumOfTotalOutStanding);
+		weeklyInstalment.add(sumOfDay6); weeklyInstalment.add(sumOfDay7); weeklyInstalment.add(sumOfDay8); weeklyInstalment.add(sumOfDay9); weeklyInstalment.add(sumOfDay10);
 		rs.close();
 	}
 
@@ -359,7 +484,7 @@ public class WeeklyReportCenterHomeController implements Initializable{
 		ResultSet rs;
 		rs = db.getQuery().executeQuery("SELECT serial_no,name,husband FROM weekly_user WHERE user_id = '"+id+"';");
 		if(rs.next()){
-			serialNo.add(rs.getInt("serial_no"));
+			serialNo.add(Integer.toString(rs.getInt("serial_no")));
 			memberName.add(rs.getString("name"));
 			husbandName.add(rs.getString("husband"));
 		}
@@ -368,41 +493,42 @@ public class WeeklyReportCenterHomeController implements Initializable{
 	}
 
 	/*********************************
-	 * Create table to the .docx file
-	 ********************************/
-//	private void createNewRow() throws Exception{
-//		XWPFDocument doc = new XWPFDocument(OPCPackage.open("tables.docx"));
-//		List<XWPFTable> tbl = doc.getTables();
-//		XWPFTableRow nr = tbl.get(1).getRow(3);
-//		for(int i = 1; i < serialNo.size(); i++){
-//			tbl.get(1).addRow(nr);
-//		}
-//		doc.write(new FileOutputStream(theDirectory + ".docx"));
-//	}
-
-	/*********************************
 	 * Writing .docx file
 	 ********************************/
 	private void exportDataToDocx() throws Exception{
-		//createNewRow();
 		progress.setProgress(0.4); // Progress indicator
 
-
-		if(serialNo.size() > 1){
+		if(serialNo.size() >= 1){
 			XWPFDocument doc = new XWPFDocument(OPCPackage.open("tables.docx"));
 			List<XWPFTable> tbl = doc.getTables();
 			XWPFTableRow nr = tbl.get(1).getRow(3);
 			for(int i = 1; i < serialNo.size(); i++){
 				tbl.get(1).addRow(nr);
 			}
+
 			doc.write(new FileOutputStream("temp.docx"));
+
 		}
+
 
 		XWPFDocument newDoc = new XWPFDocument(OPCPackage.open("temp.docx"));
 
+		for (XWPFParagraph p : newDoc.getParagraphs()) {
+			List<XWPFRun> runs = p.getRuns();
+			if (runs != null) {
+				for (XWPFRun r : runs) {
+					String text = r.getText(0);
+					if (text != null && text.contains("FSN")) {
+						text = text.replace("FSN", fsName);
+						r.setText(text, 0);
+					}
+				}
+			}
+		}
+
 		progress.setProgress(0.5); // Progress indicator
 
-		int i = 0, j = 0;
+		int i = 0, j = 0, k = 0;
 		for (XWPFTable tbl : newDoc.getTables()) {
 			for (XWPFTableRow row : tbl.getRows()) {
 				for (XWPFTableCell cell : row.getTableCells()) {
@@ -426,7 +552,7 @@ public class WeeklyReportCenterHomeController implements Initializable{
 
 							// Setting Saving Table Data
 							if (text.contains("SL") && i < serialNo.size()) {
-								text = text.replace("SL",serialNo.get(i).toString());
+								text = text.replace("SL",serialNo.get(i));
 								r.setText(text, 0);
 							}
 							if (text.contains("NMX") && i < memberName.size()) {
@@ -484,16 +610,83 @@ public class WeeklyReportCenterHomeController implements Initializable{
 							if (text.contains("TB") && i < totalBalance.size()) {
 								text = text.replace("TB",totalBalance.get(i).toString());
 								r.setText(text, 0);
-								i++;
 							}
 
 							// Setting Invest Table Data
+							if (text.contains("DI") && i < investAmountDate.size()) {
+								text = text.replace("DI", investAmountDate.get(i));
+								r.setText(text, 0);
+							}
+							if (text.contains("INVX") && i < investAmount.size()) {
+								text = text.replace("INVX", investAmount.get(i));
+								r.setText(text, 0);
+							}
+							if (text.contains("IA") && i < instalmentAmount.size()) {
+								text = text.replace("IA", instalmentAmount.get(i));
+								r.setText(text, 0);
+							}
+							if (text.contains("PR") && i < projectNo.size()) {
+								text = text.replace("PR", projectNo.get(i));
+								r.setText(text, 0);
+							}
+							if (text.contains("ODL") && i < odLastMonth.size()) {
+								text = text.replace("ODL", odLastMonth.get(i));
+								r.setText(text, 0);
+							}
+							if (text.contains("CBM") && i < investmentCBM.size()) {
+								text = text.replace("CBM", investmentCBM.get(i));
+								r.setText(text, 0);
+							}
+							if (text.contains("LMOUT") && i < lastMonthOutstanding.size()) {
+								text = text.replace("LMOUT", lastMonthOutstanding.get(i).toString());
+								r.setText(text, 0);
+							}
+							if (text.contains("DC") && i < disbudsCurrentMonth.size()) {
+								text = text.replace("DC", disbudsCurrentMonth.get(i).toString());
+								r.setText(text, 0);
+							}
+							if (text.contains("IBX") && i < totalBalanceInv.size()) {
+								text = text.replace("IBX", totalBalanceInv.get(i).toString());
+								r.setText(text, 0);
+							}
 
+							if (text.contains("D6") && k < weeklyInstalment.size()) {
+								text = text.replace("D6", weeklyInstalment.get(k).toString());
+								r.setText(text, 0);k++;
+							}
+							if (text.contains("D7") && k < weeklyInstalment.size()) {
+								text = text.replace("D7", weeklyInstalment.get(k).toString());
+								r.setText(text, 0);k++;
+							}
+							if (text.contains("D8") && k < weeklyInstalment.size()) {
+								text = text.replace("D8", weeklyInstalment.get(k).toString());
+								r.setText(text, 0);k++;
+							}
+							if (text.contains("D9") && k < weeklyInstalment.size()) {
+								text = text.replace("D9", weeklyInstalment.get(k).toString());
+								r.setText(text, 0);k++;
+							}
+							if (text.contains("DX") && k < weeklyInstalment.size()) {
+								text = text.replace("DX", weeklyInstalment.get(k).toString());
+								r.setText(text, 0);k++;
+							}
+							if (text.contains("TOCX") && i < totalCollection.size()) {
+								text = text.replace("TOCX", totalCollection.get(i).toString());
+								r.setText(text, 0);
+							}
+							if (text.contains("TOSX") && i < totalOutstanding.size()) {
+								text = text.replace("TOSX", totalOutstanding.get(i).toString());
+								r.setText(text, 0);
+								i++;
+							}
 						}
 					}
 				}
 			}
 		}
+
+		txtDirError.setText("Another file with this name is open. Please close it first and try again.");
+
 		newDoc.write(new FileOutputStream(theDirectory + ".docx"));
 		newDoc.close();
 

@@ -66,7 +66,7 @@ public class GlobalFunctions {
 		DatabaseConnection ob = new DatabaseConnection();
 
 		ob.setQuery(ob.connect().createStatement());
-		ResultSet rs = ob.getQuery().executeQuery("select center_name from centers;");
+		ResultSet rs = ob.getQuery().executeQuery("select center_name from centers ORDER BY center_name;");
 		while(rs.next()){
 			list.add(rs.getString("center_name"));
 		}

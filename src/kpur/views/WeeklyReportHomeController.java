@@ -118,14 +118,7 @@ public class WeeklyReportHomeController implements Initializable{
 
 	@FXML
 	private void createAccount() throws Exception{
-		Stage stage = (Stage) goBtn.getScene().getWindow();
-		Scene scene = goBtn.getScene();
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("WeeklyCreateAccount.fxml"));
-		scene.setRoot(loader.load());
-		stage.setScene(scene);
-		stage.setTitle("Create Account");
-		stage.show();
-
+		fn.changeScene(menu,"WeeklyCreateAccount","Create Account");
 	}
 
 	@FXML
