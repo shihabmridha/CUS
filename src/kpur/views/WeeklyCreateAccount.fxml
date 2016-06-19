@@ -65,17 +65,6 @@
                         <Font size="14.0" />
                      </font>
                   </TextField>
-                  <Label layoutX="10.0" layoutY="17.0" text="Center" GridPane.rowIndex="4">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Label>
-                  <Button fx:id="createBtn" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#createAccount" text="Create Account" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Button>
-                  <ComboBox fx:id="CbCenterList" minWidth="464.0" prefHeight="25.0" promptText="Select Center" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                   <Label text="Investment Disbuds Amount" GridPane.rowIndex="3">
                      <font>
                         <Font size="16.0" />
@@ -86,6 +75,17 @@
                         <Font size="14.0" />
                      </font>
                   </TextField>
+                  <Label layoutX="10.0" layoutY="17.0" text="Center" GridPane.rowIndex="4">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <ComboBox fx:id="CbCenterList" maxWidth="1.7976931348623157E308" prefHeight="25.0" promptText="Select Center" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <Button fx:id="btnCreate" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#createAccount" text="Create Account" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Button>
                </children>
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="369.0" minWidth="10.0" prefWidth="246.0" />

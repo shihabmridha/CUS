@@ -19,6 +19,7 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import kpur.model.DatabaseConnection;
 import kpur.model.GlobalFunctions;
@@ -54,6 +55,11 @@ public class ShareHolderHomeController implements Initializable{
 	@FXML
 	private TextField shareHolderNumber;
 
+	/*********************
+	 * TEXT FIELDS
+	 *********************/
+	@FXML
+	private Text totalShareHolders;
 	/*********************
 	 * VARIABLES
 	 *********************/
@@ -147,7 +153,16 @@ public class ShareHolderHomeController implements Initializable{
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-
+		try {
+			DatabaseConnection db = new DatabaseConnection();
+			db.setQuery(db.connect().createStatement());
+			ResultSet rs = db.getQuery().executeQuery("SELECT count(user_id) AS count FROM shareholder;");
+			if(rs.next()){
+				totalShareHolders.setText(rs.getString("count"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

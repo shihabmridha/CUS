@@ -22,6 +22,8 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import kpur.model.DatabaseConnection;
 import kpur.model.GlobalFunctions;
@@ -66,7 +68,14 @@ public class WeeklyReportHomeController implements Initializable{
 	 * SYSTEM
 	 *********************/
 	@FXML
-	void back(ActionEvent event)throws Exception{
+	private void onBackspace(KeyEvent e) throws Exception{
+		if(e.getCode().equals(KeyCode.BACK_SPACE)){
+			back();
+		}
+	}
+
+	@FXML
+	void back()throws Exception{
 		fn.changeScene(menu,"HomeActivity","CHASHI UNNOYON SOMITI");
 	}
 

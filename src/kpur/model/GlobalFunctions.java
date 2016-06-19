@@ -10,6 +10,8 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.stage.Stage;
 import kpur.views.ShareHolderDataController;
+import kpur.views.WeeklyReportCenterHomeController;
+import kpur.views.WeeklyReportDataCtrl;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -76,6 +78,7 @@ public class GlobalFunctions {
 		return list;
 	}
 
+
 	public static int getCenterCode(String centerName) throws Exception{
 		int code = 0;
 		DatabaseConnection db = new DatabaseConnection();
@@ -99,5 +102,33 @@ public class GlobalFunctions {
 		alert.showAndWait();
 	}
 
+	public void goBackToCenterList(Stage stage, Scene scene, int theCenter) throws Exception{
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/kpur/views/WeeklyReportCenterHome.fxml"));
+		scene.setRoot(loader.load());
+		stage.setScene(scene);
+		WeeklyReportCenterHomeController ob = loader.getController();
+		ob.setData(theCenter);
+		stage.show();
+	}
+
+	public void goToWeeklyAccount(Stage stage, Scene scene, int centerCode, String name) throws Exception{
+		DatabaseConnection db = new DatabaseConnection();
+		db.setQuery(db.connect().createStatement());
+		String sql = String.format("SELECT user_id FROM weekly_user WHERE center_id='%d' and name='%s';", centerCode,name);
+		ResultSet rs = db.getQuery().executeQuery(sql);
+		if(rs.next()){
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/kpur/views/WeeklyReportDataActivity.fxml"));
+			scene.setRoot(loader.load());
+			stage.setScene(scene);
+			WeeklyReportDataCtrl ob = loader.getController();
+			ob.setTableAndInfo(rs.getInt("user_id"),centerCode);
+			stage.setTitle("Share Holder Account");
+			stage.show();
+		}else{
+			GlobalFunctions.userNotFound();
+		}
+		rs.close();
+		db.connect().close();
+	}
 
 }

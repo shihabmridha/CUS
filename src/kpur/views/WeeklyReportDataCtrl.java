@@ -1,6 +1,7 @@
 package kpur.views;
 
 import java.net.URL;
+import java.security.Key;
 import java.sql.ResultSet;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -20,6 +21,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import kpur.model.DatabaseConnection;
 import kpur.model.GlobalFunctions;
@@ -27,6 +31,7 @@ import kpur.model.WeeklyInvestData;
 import kpur.model.WeeklySavingDepositData;
 
 public class WeeklyReportDataCtrl implements Initializable{
+
 	/************************
 	 * Menu
 	 ***********************/
@@ -93,7 +98,7 @@ public class WeeklyReportDataCtrl implements Initializable{
 	@FXML
 	private Button btnViewData;
 	@FXML
-	private Button btnWeeklyDepositReport;
+	private Button btnDeleteAccount;
 	@FXML
 	private Button btnSavingAdd;
 	@FXML
@@ -182,21 +187,25 @@ public class WeeklyReportDataCtrl implements Initializable{
 
     private String today, month, year;
     private int theID, theCenter;
-	private GlobalFunctions fn = new GlobalFunctions();
+
 	/*********************
 	 * SYSTEMS
 	 *********************/
+	@FXML
+	private void onBackspace(KeyEvent e) throws Exception{
+		if(e.getCode().equals(KeyCode.BACK_SPACE)){
+			back();
+		}
+	}
+
 	@FXML //Menu Back;
 	private void back()throws Exception{
 		Stage stage = (Stage) menu.getScene().getWindow();
 		Scene scene = menu.getScene();
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("WeeklyReportCenterHome.fxml"));
-		scene.setRoot(loader.load());
-		stage.setScene(scene);
-		WeeklyReportCenterHomeController ob = loader.<WeeklyReportCenterHomeController>getController();
-		ob.setData(theCenter);
-		stage.show();
+		GlobalFunctions ob = new GlobalFunctions();
+		ob.goBackToCenterList(stage,scene,theCenter);
 	}
+
 	@FXML // Menu Close;
 	private void close() throws Exception{
 		Stage stage = (Stage) menu.getScene().getWindow();
@@ -234,7 +243,7 @@ public class WeeklyReportDataCtrl implements Initializable{
     private double savingCurrentBfBalance = 0, savingCurrentMonthlyCollection = 0, savingCurrentTotalBalance = 0;
 
     // Investment Variables;
-    private double theInvestDisbudsAmount = 0, theTotalCollection = 0, theTotalOutStanding = 0;
+    private double theInvestDisbudsAmount = 0, theTotalCollection = 0;
 
 	@FXML
 	public void setTableAndInfo(int id, int centerCode) throws Exception{
@@ -347,11 +356,12 @@ public class WeeklyReportDataCtrl implements Initializable{
 	/*************************
 	 * New Entry to Invest
 	 *************************/
-	private  double theInstalmentAmount = 0, theProjectNo = 0, theODLastMonth = 0,
-			theInvestCBM = 0, theLastMonthOutStanding = 0, theDisbudsCurrentMonth = 0, theWeeklyInstalment = 0;
+	private  double theInstalmentAmount = 0, theProjectNo = 0, theODLastMonth = 0, theInvestCBM = 0, theLastMonthOutStanding = 0, theDisbudsCurrentMonth = 0, theWeeklyInstalment = 0;
 
 	@FXML
 	void investEntry() throws Exception{
+		double theTotalOutStanding;
+
 		Alert alert = new Alert(AlertType.CONFIRMATION);
 		alert.setTitle("Fix the following error!");
 		alert.setHeaderText(null);
@@ -495,7 +505,28 @@ public class WeeklyReportDataCtrl implements Initializable{
 	}
 
 
+	/***********************************
+	 * Delete User
+	 ***********************************/
+	@FXML
+	void deleteAccount() throws Exception{
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Delete Account");
+		alert.setHeaderText(null);
+		alert.setContentText("Are you sure? You will not get this account back again!");
 
+		Optional<ButtonType> res = alert.showAndWait();
+		if (res.get() == ButtonType.OK){
+
+			DatabaseConnection db = new DatabaseConnection();
+			db.setQuery(db.connect().createStatement());
+			db.puts("DELETE FROM weekly_user WHERE user_id='"+ theID +"'");
+			db.puts("DELETE FROM weekly_saving WHERE user_id='"+ theID +"'");
+			db.puts("DELETE FROM weekly_invest WHERE user_id='"+ theID +"'");
+			db.connect().close();
+			back();
+		}
+	}
 
 	/********************************
 	* Setting values from database;

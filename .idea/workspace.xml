@@ -1,17 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="Java Fx:jar" />
+    </artifacts-to-build>
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="Find table from existing docx file and add necessary rows with values.">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.db" afterPath="$PROJECT_DIR$/main.db" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Java Fx/kpur/model/GlobalFunctions.class" afterPath="$PROJECT_DIR$/out/production/Java Fx/kpur/model/GlobalFunctions.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Java Fx/kpur/views/ShareHolderHomeController.class" afterPath="$PROJECT_DIR$/out/production/Java Fx/kpur/views/ShareHolderHomeController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Java Fx/kpur/views/WeeklyCreateAccountCtrl.class" afterPath="$PROJECT_DIR$/out/production/Java Fx/kpur/views/WeeklyCreateAccountCtrl.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Java Fx/kpur/views/WeeklyReportCenterHomeController.class" afterPath="$PROJECT_DIR$/out/production/Java Fx/kpur/views/WeeklyReportCenterHomeController.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Java Fx/kpur/views/WeeklyReportDataCtrl.class" afterPath="$PROJECT_DIR$/out/production/Java Fx/kpur/views/WeeklyReportDataCtrl.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Java Fx/kpur/views/WeeklyReportHomeController.class" afterPath="$PROJECT_DIR$/out/production/Java Fx/kpur/views/WeeklyReportHomeController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tables.docx" afterPath="$PROJECT_DIR$/tables.docx" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Java Fx/kpur/views/ShareHolderHomeActivity.fxml" afterPath="$PROJECT_DIR$/out/production/Java Fx/kpur/views/ShareHolderHomeActivity.fxml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Java Fx/kpur/views/WeeklyCreateAccount.fxml" afterPath="$PROJECT_DIR$/out/production/Java Fx/kpur/views/WeeklyCreateAccount.fxml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Java Fx/kpur/views/WeeklyReportCenterHome.fxml" afterPath="$PROJECT_DIR$/out/production/Java Fx/kpur/views/WeeklyReportCenterHome.fxml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Java Fx/kpur/views/WeeklyReportDataActivity.fxml" afterPath="$PROJECT_DIR$/out/production/Java Fx/kpur/views/WeeklyReportDataActivity.fxml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/kpur/Main.java" afterPath="$PROJECT_DIR$/src/kpur/Main.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/kpur/model/DatabaseConnection.java" afterPath="$PROJECT_DIR$/src/kpur/model/DatabaseConnection.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/kpur/model/GlobalFunctions.java" afterPath="$PROJECT_DIR$/src/kpur/model/GlobalFunctions.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/kpur/model/ShareHolderDataClass.java" afterPath="$PROJECT_DIR$/src/kpur/model/ShareHolderDataClass.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/kpur/model/WeeklyInvestData.java" afterPath="$PROJECT_DIR$/src/kpur/model/WeeklyInvestData.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/kpur/model/WeeklySavingDepositData.java" afterPath="$PROJECT_DIR$/src/kpur/model/WeeklySavingDepositData.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/kpur/views/HomeActivityController.java" afterPath="$PROJECT_DIR$/src/kpur/views/HomeActivityController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/kpur/views/ShareHolderCreateAccountController.java" afterPath="$PROJECT_DIR$/src/kpur/views/ShareHolderCreateAccountController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/kpur/views/ShareHolderDataController.java" afterPath="$PROJECT_DIR$/src/kpur/views/ShareHolderDataController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/kpur/views/ShareHolderEditInfoController.java" afterPath="$PROJECT_DIR$/src/kpur/views/ShareHolderEditInfoController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/kpur/views/ShareHolderHomeActivity.fxml" afterPath="$PROJECT_DIR$/src/kpur/views/ShareHolderHomeActivity.fxml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/kpur/views/ShareHolderHomeController.java" afterPath="$PROJECT_DIR$/src/kpur/views/ShareHolderHomeController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/kpur/views/WeeklyCreateAccount.fxml" afterPath="$PROJECT_DIR$/src/kpur/views/WeeklyCreateAccount.fxml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/kpur/views/WeeklyCreateAccountCtrl.java" afterPath="$PROJECT_DIR$/src/kpur/views/WeeklyCreateAccountCtrl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/kpur/views/WeeklyCreateCenterController.java" afterPath="$PROJECT_DIR$/src/kpur/views/WeeklyCreateCenterController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/kpur/views/WeeklyEditAccountCtrl.java" afterPath="$PROJECT_DIR$/src/kpur/views/WeeklyEditAccountCtrl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/kpur/views/WeeklyReportCenterHome.fxml" afterPath="$PROJECT_DIR$/src/kpur/views/WeeklyReportCenterHome.fxml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/kpur/views/WeeklyReportCenterHomeController.java" afterPath="$PROJECT_DIR$/src/kpur/views/WeeklyReportCenterHomeController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/kpur/views/WeeklyReportDataActivity.fxml" afterPath="$PROJECT_DIR$/src/kpur/views/WeeklyReportDataActivity.fxml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/kpur/views/WeeklyReportDataCtrl.java" afterPath="$PROJECT_DIR$/src/kpur/views/WeeklyReportDataCtrl.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/kpur/views/WeeklyReportHomeController.java" afterPath="$PROJECT_DIR$/src/kpur/views/WeeklyReportHomeController.java" />
     </list>
@@ -81,42 +105,35 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="GlobalFunctions.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="GlobalFunctions.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/kpur/model/GlobalFunctions.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="173">
-              <caret line="68" column="103" selection-start-line="68" selection-start-column="103" selection-end-line="68" selection-end-column="103" />
+            <state relative-caret-position="467">
+              <caret line="80" column="0" selection-start-line="80" selection-start-column="0" selection-end-line="80" selection-end-column="0" />
               <folding>
-                <marker date="1465860734640" expanded="true" signature="2064:2095" ph="select cente... centers" />
-                <marker date="1465860734640" expanded="true" signature="2064:2116" ph="select cente... centers" />
-                <marker date="1465860734640" expanded="true" signature="2446:2510" ph="select cente... centers" />
+                <marker date="1466368111154" expanded="true" signature="2156:2208" ph="select cente... centers" />
+                <marker date="1466368111154" expanded="true" signature="2539:2603" ph="select cente... centers" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="WeeklyReportCenterHomeController.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="WeeklyReportCenterHomeController.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/kpur/views/WeeklyReportCenterHomeController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="361">
-              <caret line="127" column="46" selection-start-line="127" selection-start-column="46" selection-end-line="127" selection-end-column="46" />
+            <state relative-caret-position="306">
+              <caret line="63" column="9" selection-start-line="63" selection-start-column="9" selection-end-line="63" selection-end-column="9" />
               <folding>
-                <element signature="method#back#0;class#WeeklyReportCenterHomeController#0" expanded="false" />
-                <element signature="method#gotoAccount#0;class#WeeklyReportCenterHomeController#0" expanded="false" />
-                <element signature="method#exportData#0;class#WeeklyReportCenterHomeController#0" expanded="false" />
-                <element signature="method#fetchingSavingData#0;class#WeeklyReportCenterHomeController#0" expanded="false" />
-                <element signature="method#fetchingInvestData#0;class#WeeklyReportCenterHomeController#0" expanded="false" />
                 <element signature="method#fetchingAccountInfo#0;class#WeeklyReportCenterHomeController#0" expanded="false" />
-                <element signature="method#exportDataToDocx#0;class#WeeklyReportCenterHomeController#0" expanded="false" />
                 <element signature="method#initialize#0;class#WeeklyReportCenterHomeController#0" expanded="false" />
-                <marker date="1465860505255" expanded="true" signature="3874:3935" ph="select name weekly_user" />
-                <marker date="1465860505255" expanded="true" signature="3874:3949" ph="select name weekly_user" />
-                <marker date="1465860505255" expanded="true" signature="6764:6833" ph="SELECT cente... centers" />
-                <marker date="1465860505255" expanded="true" signature="8344:8510" ph="SELECT * FRO... weekly_saving" />
-                <marker date="1465860505255" expanded="true" signature="8426:8492" ph="SELECT user_... weekly_user" />
-                <marker date="1465860505255" expanded="true" signature="12916:13082" ph="SELECT * FRO... weekly_saving" />
-                <marker date="1465860505255" expanded="true" signature="12998:13064" ph="SELECT user_... weekly_user" />
-                <marker date="1465860505255" expanded="true" signature="17228:17299" ph="SELECT seria... weekly_user" />
+                <marker date="1466129528000" expanded="true" signature="4930:4987" ph="SELECT fs FR... centers" />
+                <marker date="1466129528000" expanded="true" signature="5086:5161" ph="select name weekly_user" />
+                <marker date="1466129528000" expanded="true" signature="7942:8011" ph="SELECT cente... centers" />
+                <marker date="1466129528000" expanded="true" signature="9520:9686" ph="SELECT * FRO... weekly_saving" />
+                <marker date="1466129528000" expanded="true" signature="9602:9668" ph="SELECT user_... weekly_user" />
+                <marker date="1466129528000" expanded="true" signature="14092:14258" ph="SELECT * FRO... weekly_invest" />
+                <marker date="1466129528000" expanded="true" signature="14174:14240" ph="SELECT user_... weekly_user" />
+                <marker date="1466129528000" expanded="true" signature="18411:18482" ph="SELECT seria... weekly_user" />
               </folding>
             </state>
           </provider>
@@ -125,11 +142,11 @@
       <file leaf-file-name="WeeklyReportHomeController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/kpur/views/WeeklyReportHomeController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="588">
-              <caret line="140" column="32" selection-start-line="140" selection-start-column="32" selection-end-line="140" selection-end-column="32" />
+            <state relative-caret-position="482">
+              <caret line="77" column="14" selection-start-line="77" selection-start-column="14" selection-end-line="77" selection-end-column="14" />
               <folding>
-                <marker date="1465860678157" expanded="true" signature="2237:2297" ph="SELECT cente... centers" />
-                <marker date="1465860678157" expanded="true" signature="3492:3571" ph="select cente... centers" />
+                <marker date="1466370167709" expanded="true" signature="2419:2479" ph="SELECT cente... centers" />
+                <marker date="1466370167709" expanded="true" signature="3674:3753" ph="select cente... centers" />
               </folding>
             </state>
           </provider>
@@ -138,30 +155,15 @@
       <file leaf-file-name="WeeklyReportDataCtrl.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/kpur/views/WeeklyReportDataCtrl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="523">
-              <caret line="253" column="35" selection-start-line="253" selection-start-column="35" selection-end-line="253" selection-end-column="35" />
+            <state relative-caret-position="323">
+              <caret line="200" column="22" selection-start-line="200" selection-start-column="22" selection-end-line="200" selection-end-column="22" />
               <folding>
-                <element signature="method#back#0;class#WeeklyReportDataCtrl#0" expanded="false" />
-                <element signature="method#editAccountInfo#0;class#WeeklyReportDataCtrl#0" expanded="false" />
-                <element signature="method#initialize#0;class#WeeklyReportDataCtrl#0" expanded="false" />
-                <marker date="1465860423881" expanded="true" signature="8268:8333" ph="select trans... weekly_saving" />
-                <marker date="1465860423881" expanded="true" signature="13200:13265" ph="select trans... weekly_invest" />
-                <marker date="1465860423881" expanded="true" signature="14839:14942" ph="SELECT total... weekly_saving" />
-                <marker date="1465860423881" expanded="true" signature="15076:15183" ph="SELECT total... weekly_invest" />
-                <marker date="1465860423881" expanded="true" signature="18152:18241" ph="select * fro... weekly_saving" />
-                <marker date="1465860423881" expanded="true" signature="18788:18877" ph="select * fro... weekly_invest" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="console.sql" pinned="false" current-in-tab="false">
-        <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/def1679d-a2dd-4374-b8e7-1146189a2394/console.sql">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="32" selection-start-line="0" selection-start-column="32" selection-end-line="0" selection-end-column="32" />
-              <folding>
-                <marker date="1465158000933" expanded="true" signature="71:124" ph="SELECT user_... weekly_user" />
+                <marker date="1466369254392" expanded="true" signature="8250:8315" ph="select trans... weekly_saving" />
+                <marker date="1466369254392" expanded="true" signature="13210:13275" ph="select trans... weekly_invest" />
+                <marker date="1466369254392" expanded="true" signature="14849:14952" ph="SELECT total... weekly_saving" />
+                <marker date="1466369254392" expanded="true" signature="15086:15193" ph="SELECT total... weekly_invest" />
+                <marker date="1466369254392" expanded="true" signature="18936:19025" ph="select * fro... weekly_saving" />
+                <marker date="1466369254392" expanded="true" signature="19572:19661" ph="select * fro... weekly_invest" />
               </folding>
             </state>
           </provider>
@@ -205,10 +207,11 @@
         <option value="$PROJECT_DIR$/src/kpur/views/HomeActivityController.java" />
         <option value="$PROJECT_DIR$/src/kpur/views/WeeklyEditAccountCtrl.java" />
         <option value="$APPLICATION_CONFIG_DIR$/consoles/db/def1679d-a2dd-4374-b8e7-1146189a2394/console.sql" />
-        <option value="$PROJECT_DIR$/src/kpur/views/WeeklyReportDataCtrl.java" />
         <option value="$PROJECT_DIR$/src/kpur/views/WeeklyReportCenterHomeController.java" />
-        <option value="$PROJECT_DIR$/src/kpur/views/WeeklyReportHomeController.java" />
         <option value="$PROJECT_DIR$/src/kpur/model/GlobalFunctions.java" />
+        <option value="$PROJECT_DIR$/src/kpur/views/WeeklyReportDataCtrl.java" />
+        <option value="$PROJECT_DIR$/src/kpur/views/WeeklyEditCenterCtrl.java" />
+        <option value="$PROJECT_DIR$/src/kpur/views/WeeklyReportHomeController.java" />
       </list>
     </option>
   </component>
@@ -348,6 +351,20 @@
               <option name="myItemId" value="src" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Java Fx" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Java Fx" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="kpur" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
@@ -377,9 +394,9 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
-      <pane id="PackagesPane" />
       <pane id="Scope" />
+      <pane id="PackagesPane" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -394,7 +411,7 @@
     <property name="dynamic.classpath" value="false" />
     <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="js-jscs-nodeInterpreter" value="C:\Program Files (x86)\nodejs\node.exe" />
@@ -1046,6 +1063,9 @@
       <workItem from="1465738729486" duration="1191000" />
       <workItem from="1465812230752" duration="3849000" />
       <workItem from="1465848888566" duration="9533000" />
+      <workItem from="1466114696367" duration="705000" />
+      <workItem from="1466353473421" duration="2711000" />
+      <workItem from="1466367710713" duration="2829000" />
     </task>
     <task id="LOCAL-00001" summary="Docx">
       <created>1464638163566</created>
@@ -1079,7 +1099,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="238501000" />
+    <option name="totallyTimeSpent" value="244746000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1100,9 +1120,9 @@
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32850778" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32995737" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.21244635" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21215352" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32962137" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32850778" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32850778" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17750533" sideWeight="0.6703755" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3496659" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
@@ -1191,21 +1211,13 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/kpur/views/WeeklyReportHomeController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2295">
-          <caret line="159" column="0" selection-start-line="159" selection-start-column="0" selection-end-line="159" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/kpur/model/GlobalFunctions.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="765">
           <caret line="49" column="0" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
           <folding>
-            <marker date="1465860734640" expanded="true" signature="2064:2095" ph="select cente... centers" />
-            <marker date="1465860734640" expanded="true" signature="2064:2116" ph="select cente... centers" />
-            <marker date="1465860734640" expanded="true" signature="2446:2510" ph="select cente... centers" />
+            <marker date="1466368111154" expanded="true" signature="2156:2208" ph="select cente... centers" />
+            <marker date="1466368111154" expanded="true" signature="2539:2603" ph="select cente... centers" />
           </folding>
         </state>
       </provider>
@@ -1243,9 +1255,8 @@
         <state relative-caret-position="765">
           <caret line="49" column="0" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
           <folding>
-            <marker date="1465860734640" expanded="true" signature="2064:2095" ph="select cente... centers" />
-            <marker date="1465860734640" expanded="true" signature="2064:2116" ph="select cente... centers" />
-            <marker date="1465860734640" expanded="true" signature="2446:2510" ph="select cente... centers" />
+            <marker date="1466368111154" expanded="true" signature="2156:2208" ph="select cente... centers" />
+            <marker date="1466368111154" expanded="true" signature="2539:2603" ph="select cente... centers" />
           </folding>
         </state>
       </provider>
@@ -1283,9 +1294,8 @@
         <state relative-caret-position="765">
           <caret line="49" column="0" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
           <folding>
-            <marker date="1465860734640" expanded="true" signature="2064:2095" ph="select cente... centers" />
-            <marker date="1465860734640" expanded="true" signature="2064:2116" ph="select cente... centers" />
-            <marker date="1465860734640" expanded="true" signature="2446:2510" ph="select cente... centers" />
+            <marker date="1466368111154" expanded="true" signature="2156:2208" ph="select cente... centers" />
+            <marker date="1466368111154" expanded="true" signature="2539:2603" ph="select cente... centers" />
           </folding>
         </state>
       </provider>
@@ -1323,9 +1333,8 @@
         <state relative-caret-position="765">
           <caret line="49" column="0" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
           <folding>
-            <marker date="1465860734640" expanded="true" signature="2064:2095" ph="select cente... centers" />
-            <marker date="1465860734640" expanded="true" signature="2064:2116" ph="select cente... centers" />
-            <marker date="1465860734640" expanded="true" signature="2446:2510" ph="select cente... centers" />
+            <marker date="1466368111154" expanded="true" signature="2156:2208" ph="select cente... centers" />
+            <marker date="1466368111154" expanded="true" signature="2539:2603" ph="select cente... centers" />
           </folding>
         </state>
       </provider>
@@ -1349,13 +1358,13 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/kpur/views/WeeklyReportDataActivity.fxml">
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="476">
           <caret line="214" column="32" selection-start-line="214" selection-start-column="32" selection-end-line="214" selection-end-column="32" />
         </state>
-      </provider>
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
       </provider>
     </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_77/javafx-src.zip!/javafx/fxml/Initializable.java" />
@@ -1432,14 +1441,14 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/kpur/views/WeeklyReportCenterHome.fxml">
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
-      </provider>
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/kpur/views/WeeklyEditAccountCtrl.java">
@@ -1466,68 +1475,68 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/kpur/views/WeeklyReportDataCtrl.java">
+    <entry file="file://$PROJECT_DIR$/src/kpur/model/GlobalFunctions.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="523">
-          <caret line="253" column="35" selection-start-line="253" selection-start-column="35" selection-end-line="253" selection-end-column="35" />
+        <state relative-caret-position="467">
+          <caret line="80" column="0" selection-start-line="80" selection-start-column="0" selection-end-line="80" selection-end-column="0" />
           <folding>
-            <element signature="method#back#0;class#WeeklyReportDataCtrl#0" expanded="false" />
-            <element signature="method#editAccountInfo#0;class#WeeklyReportDataCtrl#0" expanded="false" />
-            <element signature="method#initialize#0;class#WeeklyReportDataCtrl#0" expanded="false" />
-            <marker date="1465860423881" expanded="true" signature="8268:8333" ph="select trans... weekly_saving" />
-            <marker date="1465860423881" expanded="true" signature="13200:13265" ph="select trans... weekly_invest" />
-            <marker date="1465860423881" expanded="true" signature="14839:14942" ph="SELECT total... weekly_saving" />
-            <marker date="1465860423881" expanded="true" signature="15076:15183" ph="SELECT total... weekly_invest" />
-            <marker date="1465860423881" expanded="true" signature="18152:18241" ph="select * fro... weekly_saving" />
-            <marker date="1465860423881" expanded="true" signature="18788:18877" ph="select * fro... weekly_invest" />
+            <marker date="1466368111154" expanded="true" signature="2156:2208" ph="select cente... centers" />
+            <marker date="1466368111154" expanded="true" signature="2539:2603" ph="select cente... centers" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/kpur/views/WeeklyReportCenterHomeController.java">
+    <entry file="file://$PROJECT_DIR$/src/kpur/views/WeeklyEditCenterCtrl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="361">
-          <caret line="127" column="46" selection-start-line="127" selection-start-column="46" selection-end-line="127" selection-end-column="46" />
+        <state relative-caret-position="91">
+          <caret line="50" column="14" selection-start-line="50" selection-start-column="14" selection-end-line="50" selection-end-column="14" />
           <folding>
-            <element signature="method#back#0;class#WeeklyReportCenterHomeController#0" expanded="false" />
-            <element signature="method#gotoAccount#0;class#WeeklyReportCenterHomeController#0" expanded="false" />
-            <element signature="method#exportData#0;class#WeeklyReportCenterHomeController#0" expanded="false" />
-            <element signature="method#fetchingSavingData#0;class#WeeklyReportCenterHomeController#0" expanded="false" />
-            <element signature="method#fetchingInvestData#0;class#WeeklyReportCenterHomeController#0" expanded="false" />
-            <element signature="method#fetchingAccountInfo#0;class#WeeklyReportCenterHomeController#0" expanded="false" />
-            <element signature="method#exportDataToDocx#0;class#WeeklyReportCenterHomeController#0" expanded="false" />
-            <element signature="method#initialize#0;class#WeeklyReportCenterHomeController#0" expanded="false" />
-            <marker date="1465860505255" expanded="true" signature="3874:3935" ph="select name weekly_user" />
-            <marker date="1465860505255" expanded="true" signature="3874:3949" ph="select name weekly_user" />
-            <marker date="1465860505255" expanded="true" signature="6764:6833" ph="SELECT cente... centers" />
-            <marker date="1465860505255" expanded="true" signature="8344:8510" ph="SELECT * FRO... weekly_saving" />
-            <marker date="1465860505255" expanded="true" signature="8426:8492" ph="SELECT user_... weekly_user" />
-            <marker date="1465860505255" expanded="true" signature="12916:13082" ph="SELECT * FRO... weekly_saving" />
-            <marker date="1465860505255" expanded="true" signature="12998:13064" ph="SELECT user_... weekly_user" />
-            <marker date="1465860505255" expanded="true" signature="17228:17299" ph="SELECT seria... weekly_user" />
+            <marker date="1466370167766" expanded="true" signature="2261:2315" ph="SELECT * FRO... centers" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/kpur/views/WeeklyReportDataCtrl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="200" column="22" selection-start-line="200" selection-start-column="22" selection-end-line="200" selection-end-column="22" />
+          <folding>
+            <marker date="1466369254392" expanded="true" signature="8250:8315" ph="select trans... weekly_saving" />
+            <marker date="1466369254392" expanded="true" signature="13210:13275" ph="select trans... weekly_invest" />
+            <marker date="1466369254392" expanded="true" signature="14849:14952" ph="SELECT total... weekly_saving" />
+            <marker date="1466369254392" expanded="true" signature="15086:15193" ph="SELECT total... weekly_invest" />
+            <marker date="1466369254392" expanded="true" signature="18936:19025" ph="select * fro... weekly_saving" />
+            <marker date="1466369254392" expanded="true" signature="19572:19661" ph="select * fro... weekly_invest" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/kpur/views/WeeklyReportHomeController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="588">
-          <caret line="140" column="32" selection-start-line="140" selection-start-column="32" selection-end-line="140" selection-end-column="32" />
+        <state relative-caret-position="482">
+          <caret line="77" column="14" selection-start-line="77" selection-start-column="14" selection-end-line="77" selection-end-column="14" />
           <folding>
-            <marker date="1465860678157" expanded="true" signature="2237:2297" ph="SELECT cente... centers" />
-            <marker date="1465860678157" expanded="true" signature="3492:3571" ph="select cente... centers" />
+            <marker date="1466370167709" expanded="true" signature="2419:2479" ph="SELECT cente... centers" />
+            <marker date="1466370167709" expanded="true" signature="3674:3753" ph="select cente... centers" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/kpur/model/GlobalFunctions.java">
+    <entry file="file://$PROJECT_DIR$/src/kpur/views/WeeklyReportCenterHomeController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="173">
-          <caret line="68" column="103" selection-start-line="68" selection-start-column="103" selection-end-line="68" selection-end-column="103" />
+        <state relative-caret-position="306">
+          <caret line="63" column="9" selection-start-line="63" selection-start-column="9" selection-end-line="63" selection-end-column="9" />
           <folding>
-            <marker date="1465860734640" expanded="true" signature="2064:2095" ph="select cente... centers" />
-            <marker date="1465860734640" expanded="true" signature="2064:2116" ph="select cente... centers" />
-            <marker date="1465860734640" expanded="true" signature="2446:2510" ph="select cente... centers" />
+            <element signature="method#fetchingAccountInfo#0;class#WeeklyReportCenterHomeController#0" expanded="false" />
+            <element signature="method#initialize#0;class#WeeklyReportCenterHomeController#0" expanded="false" />
+            <marker date="1466129528000" expanded="true" signature="4930:4987" ph="SELECT fs FR... centers" />
+            <marker date="1466129528000" expanded="true" signature="5086:5161" ph="select name weekly_user" />
+            <marker date="1466129528000" expanded="true" signature="7942:8011" ph="SELECT cente... centers" />
+            <marker date="1466129528000" expanded="true" signature="9520:9686" ph="SELECT * FRO... weekly_saving" />
+            <marker date="1466129528000" expanded="true" signature="9602:9668" ph="SELECT user_... weekly_user" />
+            <marker date="1466129528000" expanded="true" signature="14092:14258" ph="SELECT * FRO... weekly_invest" />
+            <marker date="1466129528000" expanded="true" signature="14174:14240" ph="SELECT user_... weekly_user" />
+            <marker date="1466129528000" expanded="true" signature="18411:18482" ph="SELECT seria... weekly_user" />
           </folding>
         </state>
       </provider>
@@ -1538,11 +1547,12 @@
       <state key="ArtifactsStructureConfigurable.UI">
         <settings>
           <artifact-editor />
-          <last-edited>JavaFXApp</last-edited>
+          <last-edited>Java Fx:jar</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
                 <option value="0.2" />
+                <option value="0.5" />
               </list>
             </option>
           </splitter-proportions>

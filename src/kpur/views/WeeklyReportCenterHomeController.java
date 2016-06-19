@@ -7,6 +7,7 @@ import java.net.URL;
 import java.sql.ResultSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import javafx.application.Platform;
@@ -61,6 +62,10 @@ public class WeeklyReportCenterHomeController implements Initializable{
 	@FXML
 	Text txtCenterCode;
 	@FXML
+	Text txtFS;
+	@FXML
+	Text txtTotalUser;
+	@FXML
 	Text txtDirError;
 
 	/*********************
@@ -73,74 +78,7 @@ public class WeeklyReportCenterHomeController implements Initializable{
 	 * VARIABLES
 	 *********************/
 	private int centerCode;
-	private ObservableList<String> userList = FXCollections.observableArrayList();
-	private ObservableList<String> monthList = FXCollections.observableArrayList();
-	private ObservableList<Integer> yearList = FXCollections.observableArrayList();
-	private String month, year, centerName, theDirectory, fsName;
-
-	private GlobalFunctions fn = new GlobalFunctions();
-
-	public WeeklyReportCenterHomeController() throws IOException, InvalidFormatException {}
-
-	/*********************
-	 * METHODS
-	 *********************/
-	@FXML
-	private void back(ActionEvent event)throws Exception{
-		fn.changeScene(menu,"WeeklyReportHomeActivity","Weekly Report");
-	}
-
-	@FXML
-	private void close() throws Exception{
-		Stage stage = (Stage) menu.getScene().getWindow();
-		stage.setOnCloseRequest(e-> System.out.println("Are you sure?"));
-		Platform.exit();
-	}
-
-	@FXML
-	private void createAccount() throws Exception{
-		fn.changeScene(menu,"WeeklyCreateAccount","Create weekly user account");
-	}
-
-	@FXML
-	public void gotoAccount() throws Exception{
-		DatabaseConnection db = new DatabaseConnection();
-		db.setQuery(db.connect().createStatement());
-		String sql = String.format("SELECT user_id FROM weekly_user WHERE center_id='%d' and name='%s';", centerCode, cbName.getValue());
-		ResultSet rs = db.getQuery().executeQuery(sql);
-		if(rs.next()){
-			Stage stage = (Stage) viewBtn.getScene().getWindow();
-			Scene scene = viewBtn.getScene();
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("WeeklyReportDataActivity.fxml"));
-			scene.setRoot(loader.load());
-			stage.setScene(scene);
-			WeeklyReportDataCtrl ob = loader.getController();
-			ob.setTableAndInfo(rs.getInt("user_id"),centerCode);
-			stage.setTitle("Share Holder Account");
-			stage.show();
-		}else{
-			GlobalFunctions.userNotFound();
-		}
-		rs.close();
-		db.connect().close();
-	}
-	// Set names of center;
-	public void setData(int centerCode) throws Exception{
-		this.centerCode = centerCode;
-		txtCenterCode.setText(Integer.toString(centerCode));
-		DatabaseConnection ob = new DatabaseConnection();
-		ob.setQuery(ob.connect().createStatement());
-		ResultSet rs = ob.getQuery().executeQuery("select name from weekly_user where center_id='"+centerCode+"' ORDER BY name;");
-		while(rs.next()){
-			userList.add(rs.getString("name"));
-		}
-		rs.close();
-		ob.connect().close();
-
-		cbName.getItems().addAll(userList);
-	}
-
-
+	// Information list
 	private List<String> serialNo = new LinkedList<>();
 	private List<String> memberName = new LinkedList<>();
 	private List<String> husbandName = new LinkedList<>();
@@ -168,7 +106,103 @@ public class WeeklyReportCenterHomeController implements Initializable{
 	private List<Integer> weeklyInstalment = new LinkedList<>();
 	private List<Integer> totalCollection = new LinkedList<>();
 	private List<Integer> totalOutstanding = new LinkedList<>();
+	private ObservableList<String> userList = FXCollections.observableArrayList();
+	private ObservableList<String> monthList = FXCollections.observableArrayList();
+	private ObservableList<Integer> yearList = FXCollections.observableArrayList();
+	private String month, year, centerName, theDirectory, fsName;
 
+	private GlobalFunctions fn = new GlobalFunctions();
+
+	/*********************
+	 * METHODS
+	 *********************/
+	@FXML
+	private void back()throws Exception{
+		fn.changeScene(menu,"WeeklyReportHomeActivity","Weekly Report");
+	}
+
+	@FXML
+	private void close() throws Exception{
+		Stage stage = (Stage) menu.getScene().getWindow();
+		stage.setOnCloseRequest(e-> System.out.println("Are you sure?"));
+		Platform.exit();
+	}
+
+	@FXML
+	private void createAccount() throws Exception{
+		Stage stage = (Stage) menu.getScene().getWindow();
+		Scene scene = menu.getScene();
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/kpur/views/WeeklyCreateAccount.fxml"));
+		scene.setRoot(loader.load());
+		stage.setScene(scene);
+		WeeklyCreateAccountCtrl ob = loader.getController();
+		ob.setCenter(centerCode);
+		stage.show();
+	}
+
+	@FXML
+	public void gotoAccount() throws Exception{
+		Stage stage = (Stage) viewBtn.getScene().getWindow();
+		Scene scene = viewBtn.getScene();
+
+		GlobalFunctions ob = new GlobalFunctions();
+		ob.goToWeeklyAccount(stage,scene,centerCode,cbName.getValue());
+	}
+
+	// Set names of center;
+	public void setData(int centerCode) throws Exception{
+		this.centerCode = centerCode;
+		txtCenterCode.setText(Integer.toString(centerCode));
+		DatabaseConnection ob = new DatabaseConnection();
+		ob.setQuery(ob.connect().createStatement());
+		ResultSet rs = ob.getQuery().executeQuery("SELECT fs FROM centers WHERE center_id = '"+centerCode+"'");
+		if(rs.next()){
+			txtFS.setText(rs.getString("fs"));
+		}
+
+		rs = ob.getQuery().executeQuery("select name from weekly_user where center_id='"+centerCode+"' ORDER BY name;");
+		int i = 0;
+		while(rs.next()){
+			userList.add(rs.getString("name"));
+			i++;
+		}
+		txtTotalUser.setText(Integer.toString(i));
+		rs.close();
+		ob.connect().close();
+
+		cbName.getItems().addAll(userList);
+	}
+
+	@FXML
+	private void updateCenerInfo() throws Exception{
+		Stage stage = (Stage) viewBtn.getScene().getWindow();
+		Scene scene = viewBtn.getScene();
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("WeeklyEditCenter.fxml"));
+		scene.setRoot(loader.load());
+		stage.setScene(scene);
+		WeeklyEditCenterCtrl ob = loader.getController();
+		ob.setCenterCodeWithTextField(centerCode);
+		stage.setTitle("Update Center Info");
+		stage.show();
+	}
+
+	@FXML
+	private void deleteCenter() throws Exception{
+		Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+		alert.setTitle("Delete center");
+		alert.setHeaderText(null);
+		alert.setContentText("Are you sure? You will lost all data under this center!");
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() == ButtonType.OK){
+			DatabaseConnection db = new DatabaseConnection();
+			db.puts("DELETE FROM weekly_saving WHERE user_id in (SELECT user_id FROM weekly_user WHERE center_id = '"+centerCode+"');");
+			db.puts("DELETE FROM weekly_invest WHERE user_id in (SELECT user_id FROM weekly_user WHERE center_id = '"+centerCode+"');");
+			db.puts("DELETE FROM weekly_user WHERE center_id = '"+centerCode+"';");
+			db.puts("DELETE FROM centers WHERE center_id = '"+centerCode+"';");
+			back();
+			db.connect().close();
+		}
+	}
 
 	@FXML
 	public void exportData() throws Exception{
@@ -244,8 +278,6 @@ public class WeeklyReportCenterHomeController implements Initializable{
 		}else{
 			txtDirError.setText("Something went wrong!");
 		}
-
-
 	}
 
 
@@ -448,7 +480,7 @@ public class WeeklyReportCenterHomeController implements Initializable{
 			track++;
 			if(counter % 5 == 0){
 				investAmountDate.add(" ");
-				investAmount.add( Double.toString(rs.getDouble("investment_amount")));
+				investAmount.add( Integer.toString((int) rs.getDouble("investment_amount")));
 				instalmentAmount.add(Integer.toString((int)installAmount));
 				projectNo.add(Integer.toString(proNo));
 				odLastMonth.add(Integer.toString((int)odLast));

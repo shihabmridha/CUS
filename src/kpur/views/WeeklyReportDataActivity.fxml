@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="900.0" spacing="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="kpur.views.WeeklyReportDataCtrl">
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#onBackspace" prefHeight="900.0" prefWidth="900.0" spacing="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="kpur.views.WeeklyReportDataCtrl">
    <children>
       <MenuBar fx:id="menu">
          <menus>
@@ -43,7 +43,7 @@
                   <Font size="14.0" />
                </font>
             </Button>
-            <Button fx:id="btnWeeklyDepositReport" layoutX="473.0" layoutY="25.0" mnemonicParsing="false" text="WEEKLY DEPOSIT REPORT">
+            <Button fx:id="btnDeleteAccount" layoutX="473.0" layoutY="25.0" mnemonicParsing="false" onAction="#deleteAccount" text="DELETE ACCOUNT">
                <font>
                   <Font size="14.0" />
                </font>

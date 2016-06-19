@@ -13,10 +13,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import kpur.model.DatabaseConnection;
@@ -35,21 +32,36 @@ public class WeeklyCreateAccountCtrl implements Initializable{
 	@FXML
 	TextField tfInvestmentAmount;
 
+	/*********************
+	 * ComboBox
+	 *********************/
 	@FXML
 	ComboBox<String> CbCenterList;
+
+	/*********************
+	 * Button
+	 *********************/
+	@FXML
+	private Button btnCreate;
+
+
 
 	/*********************
 	 * VARIABLES
 	 *********************/
 	private ObservableList<String> centerObList = FXCollections.observableArrayList();
 	private GlobalFunctions fn = new GlobalFunctions();
+	private int theCenter;
 
 	/*********************
 	 * METHODS
 	 *********************/
 	@FXML
 	private void back()throws Exception{
-		fn.changeScene(menu,"WeeklyReportHomeActivity","Weekly Report");
+		Stage stage = (Stage) menu.getScene().getWindow();
+		Scene scene = menu.getScene();
+		GlobalFunctions ob = new GlobalFunctions();
+		ob.goBackToCenterList(stage,scene,theCenter);
 	}
 	@FXML
 	private void close() throws Exception{
@@ -60,6 +72,9 @@ public class WeeklyCreateAccountCtrl implements Initializable{
 		Platform.exit();
 	}
 
+	public void setCenter(int center){
+		theCenter = center;
+	}
 
 	@FXML
 	private void createAccount() throws Exception{
@@ -105,6 +120,12 @@ public class WeeklyCreateAccountCtrl implements Initializable{
 			alert.setAlertType(AlertType.INFORMATION);;
 			alert.setContentText("Center Created Successfully!");
 			alert.showAndWait();
+
+			Stage stage = (Stage) btnCreate.getScene().getWindow();
+			Scene scene = btnCreate.getScene();
+			GlobalFunctions ob = new GlobalFunctions();
+			ob.goToWeeklyAccount(stage,scene,GlobalFunctions.getCenterCode(CbCenterList.getValue()),tfName.getText());
+
 		}
 	}
 
